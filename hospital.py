@@ -2,6 +2,7 @@ from enum import Enum
 from dataclasses import dataclass
 
 
+# Resource type defined at https://github.com/abhinavj13/iitk-covid-help-api/blob/master/src/services/dataLead/db/enum.ts
 class ResourceType(Enum):
     BED_WITHOUT_OXYGEN = "BED_WITHOUT_OXYGEN"
     BED_WITH_OXYGEN = "BED_WITH_OXYGEN"
@@ -12,7 +13,7 @@ class ResourceType(Enum):
 
 @dataclass
 class Resource:
-    resource_type: str  # Resource type defined at https://github.com/abhinavj13/iitk-covid-help-api/blob/master/src/services/dataLead/db/enum.ts
+    resource_type: ResourceType
     resource_description: str
     resource_qty: int
 
