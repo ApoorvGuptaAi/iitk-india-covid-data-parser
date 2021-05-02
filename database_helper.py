@@ -1,6 +1,8 @@
 import os
-from .hospital import Hospital
 import requests
+
+from hospital import Hospital
+from hospital import Resource
 
 
 #https://www.getpostman.com/collections/ac744d6c750be50db61e
