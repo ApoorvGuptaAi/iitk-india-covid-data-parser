@@ -1,2 +1,4 @@
 # iitk-india-covid-data-parser
-Data parser for covid india resources
+
+Parse websites and return a list of hospital dataclases.
+Written to a database.
