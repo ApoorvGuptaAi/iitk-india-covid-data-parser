@@ -1,4 +1,6 @@
+from typing import List
 import os
+
 import requests
 
 from hospital import Hospital
@@ -58,3 +60,12 @@ def get_request():
     host = get_host()
     url = "http://{}/dataLeads".format(host)
     return requests.get(url)
+
+
+def upload_hospitals(hospitals: List[Hospital]):
+    for hospital in hospitals:
+        json_hospital = hospital_to_json(hospital)
+        resp = post_request(json_hospital)
+        if resp.status_code != 200:
+            raise AssertionError("Update failed with {}, {}".format(
+                resp.status_code, resp.text))
