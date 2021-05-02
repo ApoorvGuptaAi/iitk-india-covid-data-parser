@@ -45,7 +45,7 @@ def get_ranchi_hospitals():
 def main():
     hospital_data = get_ranchi_hospitals()
     #print(hospital_data)
-    #upload_hospitals([hospital_data])
+    #upload_hospitals(hospital_data)
 
 
 if __name__ == "__main__":
