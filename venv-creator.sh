@@ -1,4 +1,6 @@
 #/bin/bash
+# Based on https://docs.aws.amazon.com/pinpoint/latest/developerguide/tutorials-importing-data-create-python-package.html
+# Might have an easier approach based on https://towardsdatascience.com/serverless-covid-19-data-scraper-with-python-and-aws-lambda-d6789a551b78
 PYTHON_BINARY=python3.7  #Change for your machine.
 python -m pip install virtualenv
 python -m virtualenv venv
