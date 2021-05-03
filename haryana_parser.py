@@ -9,6 +9,8 @@ import re
 from hospital import Hospital, Resource, ResourceType
 from database_helper import upload_hospitals
 
+HARYANA_URL='https://coronaharyana.in'
+
 def get_updated_timestamp(updated_text):
   return parser.parse(updated_text[len('Updated On: '):])
 
@@ -36,7 +38,7 @@ def parse_hospital(hospital_div, district):
                  numbers[2]),
   Resource(ResourceType.ICU_WITH_VENTILATOR, 'ventilator',
                  numbers[3])]
-  hospital = Hospital(name, address, district, '', 'Haryana', location, get_updated_timestamp(updated_at), resources)
+  hospital = Hospital(name, address, district, '', 'Haryana', location, get_updated_timestamp(updated_at), resources, 'HaryanaParser', HARYANA_URL)
   return hospital
 
 def get_hospital_list(district_name, district_index):
@@ -55,12 +57,13 @@ def get_haryana_hospitals():
   for district in haryana_districts.items():
     district_hospitals = get_hospital_list(district[0], district[1])
     all_hospitals.extend(district_hospitals)
-  return all_hospitals
+  return { HARYANA_URL: all_hospitals }
 
 def main():
   hospital_data = get_haryana_hospitals()
   print(len(hospital_data))
-  print(hospital_data[0]) 
+  print(len(hospital_data[HARYANA_URL]))
+  print(hospital_data[HARYANA_URL][0])
   #upload_hospitals(hospital_data)
 
 
