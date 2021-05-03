@@ -40,11 +40,14 @@ def hospital_to_json(hospital: Hospital):
     return json_obj
 
 
-def get_host():
-    return os.environ.get('INDIA_COVID_HOST')
+def get_host() -> str:
+    host = os.environ.get('INDIA_COVID_HOST')
+    if not host:
+        raise AssertionError('Missing environment variable: INDIA_COVID_HOST')
+    return host
 
 
-def get_headers():
+def get_headers() -> str:
     header_value = os.environ.get('INDIA_COVID_AUTH_HEADER')
     if not header_value:
         raise AssertionError(
@@ -57,6 +60,7 @@ def post_request(json_obj):
     url = "http://{}/dataLeads".format(host)
     headers = get_headers()
     # print(json.dumps(json_obj))
+    # TODO(apoorv) maybe use sessions for faster upload.
     return requests.post(url, json=json_obj, headers=headers)
 
 

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Mapping
 import json
 
 import requests
@@ -117,15 +117,17 @@ def get_bed_resource_type(keys):
     return [key for key in keys if 'available_' in key and "beds" in key]
 
 
-now = datetime.now()
-
-
-def get_output_from_data():
+def get_data(state_filter=None, city_filter=None) -> Mapping[str, List]:
+    now = datetime.now()
     home_response_dict = get_data_from_web()
     source_data = {}
     for covid_source in covid_home_url_maps:
         state = covid_source["State"]
         city = covid_source["City"]
+        if state_filter and state_filter != state:
+            continue
+        if city_filter and city_filter != city:
+            continue
         domain = re.search("\/\/covid[a-z]*\.",
                            covid_source["URL"]).group(0).strip("\/\.")
         URL = covid_source["URL"]
