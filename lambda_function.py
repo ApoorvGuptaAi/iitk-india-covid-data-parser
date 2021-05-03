@@ -20,7 +20,8 @@ def main(request={}):
 
 
 def lambda_handler(event, context):
-    return json.dumps(main())
+    # TODO(apoorv) Parse state from context.
+    return main({'state': 'Gujarat'})
 
 
 if __name__ == "__main__":
