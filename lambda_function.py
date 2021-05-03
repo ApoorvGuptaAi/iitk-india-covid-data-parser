@@ -1,4 +1,5 @@
 import json
+import time
 
 from generic_hospital_parser import get_data as generic_hospital_get_data
 from noida_up_parser import get_noida_hospitals
@@ -24,9 +25,15 @@ def main(request):
     outputs = []
     for url in url_hospitals_map:
         hospitals = url_hospitals_map[url]
+        start = time.time()
         size = len(hospitals)
         upload_hospitals(hospitals)
-        output = {"state": state_filter, "url": url, "size": size}
+        output = {
+            "state": state_filter,
+            "url": url,
+            "size": size,
+            "duration": time.time() - start
+        }
         if city_filter:
             output["city"] = city_filter
         outputs.append(output)

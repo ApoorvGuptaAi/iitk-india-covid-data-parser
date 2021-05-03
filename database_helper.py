@@ -55,13 +55,13 @@ def get_headers() -> str:
     return {'authorization': header_value, 'Content-Type': 'application/json'}
 
 
-def post_request(json_obj):
+def post_request(json_obj, client=requests):
     host = get_host()
     url = "http://{}/dataLeads".format(host)
     headers = get_headers()
     # print(json.dumps(json_obj))
     # TODO(apoorv) maybe use sessions for faster upload.
-    return requests.post(url, json=json_obj, headers=headers)
+    return client.post(url, json=json_obj, headers=headers)
 
 
 def get_request():
@@ -71,10 +71,11 @@ def get_request():
 
 
 def upload_hospitals(hospitals: List[Hospital]):
+    client = requests.session()
     for hospital in hospitals:
         json_hospital = hospital_to_json(hospital)
         print("Uploading: {}".format(json_hospital["vendor"]["id"]))
-        resp = post_request(json_hospital)
+        resp = post_request(json_hospital, client=client)
         if resp.status_code != 200:
             raise AssertionError("Update failed with {}, {}".format(
                 resp.status_code, resp.text))
