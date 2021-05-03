@@ -1,5 +1,6 @@
 from typing import List
 import os
+import json
 
 import requests
 
@@ -43,17 +44,19 @@ def get_host():
 
 
 def get_headers():
-    return {
-        'authorization': os.environ.get('INDIA_COVID_AUTH_HEADER'),
-        'Content-Type': 'application/json'
-    }
+    header_value = os.environ.get('INDIA_COVID_AUTH_HEADER')
+    if not header_value:
+        raise AssertionError(
+            'Missing environment variable: INDIA_COVID_AUTH_HEADER')
+    return {'authorization': header_value, 'Content-Type': 'application/json'}
 
 
 def post_request(json_obj):
     host = get_host()
     url = "http://{}/dataLeads".format(host)
     headers = get_headers()
-    return requests.post(url, data=json_obj, headers=headers)
+    # print(json.dumps(json_obj))
+    return requests.post(url, json=json_obj, headers=headers)
 
 
 def get_request():
