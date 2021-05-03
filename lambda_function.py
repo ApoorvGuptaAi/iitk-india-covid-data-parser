@@ -6,7 +6,7 @@ from ranchi_parser import get_ranchi_hospitals
 from database_helper import upload_hospitals
 
 
-def main(request={}):
+def main(request):
     state_filter = request.get('state', None) if request else None
     city_filter = request.get('city', None) if request else None
     print("Filters: {}, {}".format(state_filter, city_filter))
@@ -25,7 +25,7 @@ def main(request={}):
     for url in url_hospitals_map:
         hospitals = url_hospitals_map[url]
         size = len(hospitals)
-        # upload_hospitals(hospitals)
+        upload_hospitals(hospitals)
         output = {"state": state_filter, "url": url, "size": size}
         if city_filter:
             output["city"] = city_filter
@@ -34,9 +34,8 @@ def main(request={}):
 
 
 def lambda_handler(event, context):
-    # TODO(apoorv) Parse state from context.
-    return main({'state': 'Jharkhand', 'city': 'Ranchi'})
+    return main(event)
 
 
 if __name__ == "__main__":
-    print(main({'state': 'UP', 'city': 'Noida'}))
+    print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
