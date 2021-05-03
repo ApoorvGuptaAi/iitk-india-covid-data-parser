@@ -24,9 +24,11 @@ def hospital_to_json(hospital: Hospital):
     ]
     json_obj = {
         "lastUpdatedAt": hospital.last_updated.isoformat(),
+        "jobId": "TODO",
         "resources": resources_json_array,
         "vendor": {
             "name": hospital.name,
+            "debugText": hospital.debug_text,
             "uniqueId": h_id,
             "address": {
                 "completeAddress": hospital.address,
