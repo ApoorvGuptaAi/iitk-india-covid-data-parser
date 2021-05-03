@@ -10,8 +10,8 @@ class ResourceType(Enum):
     BED_WITH_OXYGEN = "BED_WITH_OXYGEN"
     ICU_WITH_VENTILATOR = "ICU_WITH_VENTILATOR"
     ICU_WITHOUT_VENTILATOR = "ICU_WITHOUT_VENTILATOR"
-    TOTAL_BEDS = "TOTAL_BEDS"
-    TOTAL_ICUS = "TOTAL_ICUS"
+    BEDS = "BEDS"
+    ICUS = "ICUS"
 
 
 @dataclass
@@ -35,7 +35,7 @@ class Hospital:
 
 def map_raw_resource_str_to_type(resource_str: str) -> ResourceType:
     if resource_str == "available_beds_allocated_to_covid":
-        return ResourceType.TOTAL_BEDS
+        return ResourceType.BEDS
     if resource_str == "available_beds_without_oxygen":
         return ResourceType.BED_WITHOUT_OXYGEN
     if resource_str == "available_beds_with_oxygen":
