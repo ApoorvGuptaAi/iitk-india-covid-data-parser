@@ -18,7 +18,7 @@ def resource_to_json(resource: Resource):
 
 
 def hospital_to_json(hospital: Hospital):
-    h_id = "{}-{}-{}".format(hospital.state, hospital.city, hospital.name)
+    h_id = "{}-{}-{}-{}".format(hospital.state, hospital.district, hospital.city, hospital.name)
     resources_json_array = [
         resource_to_json(resource) for resource in hospital.resources
     ]
@@ -27,7 +27,7 @@ def hospital_to_json(hospital: Hospital):
         "resources": resources_json_array,
         "vendor": {
             "name": hospital.name,
-            "id": h_id,
+            "uniqueId": h_id,
             "address": {
                 "completeAddress": hospital.address,
                 "city": hospital.city,
