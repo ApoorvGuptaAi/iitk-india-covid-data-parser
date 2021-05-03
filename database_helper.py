@@ -4,8 +4,7 @@ import json
 
 import requests
 
-from hospital import Hospital
-from hospital import Resource
+from hospital import *
 
 
 #https://www.getpostman.com/collections/ac744d6c750be50db61e
@@ -13,7 +12,8 @@ def resource_to_json(resource: Resource):
     return {
         "resourceType": resource.resource_type.name,
         "description": resource.resource_description,
-        "quantity": resource.resource_qty
+        "quantity": resource.resource_qty,
+        "total_quantity": resource.total_qty
     }
 
 
@@ -27,6 +27,7 @@ def hospital_to_json(hospital: Hospital):
         "resources": resources_json_array,
         "vendor": {
             "name": hospital.name,
+            "id": h_id,
             "address": {
                 "completeAddress": hospital.address,
                 "city": hospital.city,
@@ -68,6 +69,7 @@ def get_request():
 def upload_hospitals(hospitals: List[Hospital]):
     for hospital in hospitals:
         json_hospital = hospital_to_json(hospital)
+        print("Uploading: {}".format(json_hospital["vendor"]["id"]))
         resp = post_request(json_hospital)
         if resp.status_code != 200:
             raise AssertionError("Update failed with {}, {}".format(

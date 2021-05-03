@@ -1,6 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 import datetime
 
 
@@ -19,6 +19,7 @@ class Resource:
     resource_type: ResourceType
     resource_description: str
     resource_qty: int
+    total_qty: Optional[int] = 0
 
 
 @dataclass
