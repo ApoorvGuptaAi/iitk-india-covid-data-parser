@@ -34,6 +34,10 @@ def main(request):
 
 
 def lambda_handler(event, context):
+    if not event['state']:
+        raise AssertionError(
+            "Please specify state in request, Otherwise lambda will timeout. " +
+            json.dumps(event))
     return main(event)
 
 
