@@ -30,7 +30,9 @@ def get_hospital_data(hosp_data):
 
 def get_noida_hospitals():
     scraped_data = get_data_from_web()
-    return [get_hospital_data(hospital) for hospital in scraped_data]
+    return {
+        NOIDA_URL: [get_hospital_data(hospital) for hospital in scraped_data]
+    }
 
 
 def main():

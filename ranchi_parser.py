@@ -39,7 +39,7 @@ def get_ranchi_hospitals():
         hosp = Hospital(row_data['hosp_name'], None, 'Ranchi', 'Ranchi',
                         'Jharkhand', '', last_updated, resources)
         hospital_data.append(hosp)
-    return hospital_data
+    return {RANCHI_URL: hospital_data}
 
 
 def main():

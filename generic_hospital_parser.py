@@ -104,11 +104,16 @@ covid_home_url_maps = [{
 
 
 # List of web data sources
-def get_data_from_web():
+def get_data_from_web(state_filter, city_filter):
     home_response_dict = {}
     for covid_source in covid_home_url_maps:
+        if state_filter and state_filter != covid_source['State']:
+            continue
+        if city_filter and city_filter != covid_source['City']:
+            continue
         domain = re.search("\/\/covid[a-z]*\.",
                            covid_source["URL"]).group(0).strip("\/\.")
+        print((domain, covid_source))
         home_response_dict[domain] = requests.get(covid_source["URL"]).text
     return home_response_dict
 
@@ -119,19 +124,17 @@ def get_bed_resource_type(keys):
 
 def get_data(state_filter=None, city_filter=None) -> Mapping[str, List]:
     now = datetime.now()
-    home_response_dict = get_data_from_web()
+    home_response_dict = get_data_from_web(state_filter, city_filter)
     source_data = {}
     for covid_source in covid_home_url_maps:
         state = covid_source["State"]
         city = covid_source["City"]
-        if state_filter and state_filter != state:
-            continue
-        if city_filter and city_filter != city:
-            continue
         domain = re.search("\/\/covid[a-z]*\.",
                            covid_source["URL"]).group(0).strip("\/\.")
         URL = covid_source["URL"]
 
+        if domain not in home_response_dict:
+            continue
         # Use requests to retrieve data from a given URL
         home_response = home_response_dict[domain]
 
