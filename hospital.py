@@ -24,6 +24,7 @@ class Resource:
 
 @dataclass
 class Hospital:
+    debug_text: str
     name: str
     address: str
     district: str
