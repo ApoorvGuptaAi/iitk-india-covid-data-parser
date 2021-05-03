@@ -16,7 +16,7 @@ def main(request={}):
         size = len(hospitals)
         upload_hospitals(hospitals)
         output.append({"state": state_filter, "url": url, "size": size})
-    return json.dumps(output)
+    return json.dumps({"outputs": output})
 
 
 def lambda_handler(event, context):
