@@ -13,6 +13,7 @@ _VERSION = 1
 def main(request):
     state_filter = request.get('state', None) if request else None
     city_filter = request.get('city', None) if request else None
+    print("Filters: {}, {}".format(state_filter, city_filter))
     job_id = "Parser{}-{}-{}-{}".format(_VERSION, round(time.time()),
                                         state_filter, city_filter)
     # Add if-else based on state and city.
@@ -43,7 +44,9 @@ def main(request):
         if city_filter:
             output["city"] = city_filter
         outputs.append(output)
-    return json.dumps({"outputs": outputs})
+    output_str = json.dumps({"outputs": outputs})
+    print(output_str)
+    return output_str
 
 
 def lambda_handler(event, context):
