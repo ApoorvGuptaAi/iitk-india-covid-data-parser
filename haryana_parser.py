@@ -29,7 +29,7 @@ def parse_hospital(hospital_div, district):
   updated_at = meta_info_div[0].string
   location = meta_info_div[1].find('a').attrs['onclick']
   beds_text = beds_text.replace('Beds Over Utilized ', '-')
-  numbers = re.findall('-?(?:\d+,?)+', beds_text)
+  numbers = re.findall('-?(?:\d+?)+', beds_text)
   resources = [Resource(ResourceType.BEDS, 'total_beds',
                  numbers[0]), 
   Resource(ResourceType.BED_WITHOUT_OXYGEN, 'isolation_beds',

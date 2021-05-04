@@ -166,7 +166,9 @@ def get_data(state_filter=None, city_filter=None) -> Mapping[str, List]:
                 '',  #location
                 datetime.fromtimestamp(
                     data.get('last_updated_on', now.timestamp()) / 1000),
-                resources)
+                resources,
+                "GenericParser",
+                URL)
             output.append(hospital)
         source_data[URL] = output
     return source_data

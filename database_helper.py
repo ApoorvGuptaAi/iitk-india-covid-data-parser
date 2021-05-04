@@ -30,7 +30,7 @@ def hospital_to_json(hospital: Hospital):
         "vendor": {
             "name": hospital.name,
             "debugText": hospital.debug_text,
-            "uniqueId": h_id,
+            "id": h_id,
             "address": {
                 "completeAddress": hospital.address,
                 "city": hospital.city,

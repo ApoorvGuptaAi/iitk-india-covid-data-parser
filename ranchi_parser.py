@@ -37,7 +37,8 @@ def get_ranchi_hospitals():
             Resource(ResourceType.ICUS, None, row_data['ICU_Available'])
         ]
         hosp = Hospital(row_data['hosp_name'], None, 'Ranchi', 'Ranchi',
-                        'Jharkhand', '', last_updated, resources)
+                        'Jharkhand', '', last_updated, resources,
+                        'JharkhandRanchi', RANCHI_URL)
         hospital_data.append(hosp)
     return {RANCHI_URL: hospital_data}
 
