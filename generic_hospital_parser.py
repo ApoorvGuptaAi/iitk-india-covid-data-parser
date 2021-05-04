@@ -128,10 +128,8 @@ def get_bed_resources(hosp_json):
         resource_obj = resources[resource_type]
         if key.startswith("total_"):
             resource_obj.total_qty = hosp_json[key]
-            print(key, hosp_json[key], resource_obj)
         elif key.startswith("available_"):
             resource_obj.resource_qty = hosp_json[key]
-            print(key, hosp_json[key], resource_obj)
         elif key.startswith("amc_") or key.startswith("private_"):
             pass
         else:
