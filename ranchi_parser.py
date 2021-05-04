@@ -31,10 +31,13 @@ def get_ranchi_hospitals():
                                          '%Y-%m-%d %H:%M:%S')
         resources = [
             Resource(ResourceType.BED_WITHOUT_OXYGEN, None,
-                     row_data['No_Oxygen_Available']),
+                     int(row_data['No_Oxygen_Available']),
+                     int(row_data['No_Oxygen_Total'])),
             Resource(ResourceType.BED_WITH_OXYGEN, None,
-                     row_data['Oxygen_Available']),
-            Resource(ResourceType.ICUS, None, row_data['ICU_Available'])
+                     int(row_data['Oxygen_Available']),
+                     int(row_data['Oxygen_Total'])),
+            Resource(ResourceType.ICUS, None, int(row_data['ICU_Available']),
+                     int(row_data['ICU_Total']))
         ]
         hosp = Hospital(row_data['hosp_name'], None, 'Ranchi', 'Ranchi',
                         'Jharkhand', '', last_updated, resources)
