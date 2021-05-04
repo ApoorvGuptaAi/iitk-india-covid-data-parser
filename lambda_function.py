@@ -70,7 +70,7 @@ def main(request):
         if city_filter:
             output["city"] = city_filter
         outputs.append(output)
-    output_str = json.dumps({"outputs": outputs}, indent=2)
+    output_str = json.dumps({"outputs": outputs})
     print(output_str)
     return output_str
 
