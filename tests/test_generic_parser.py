@@ -24,3 +24,12 @@ class TestGenericParse(unittest.TestCase):
         expected_serialized_hospital = """{"lastUpdatedAt": "2021-05-02T23:29:50", "scrapedFrom": null, "jobId": "SomeJobId", "resources": [{"resourceType": "BEDS", "description": "", "quantity": 0, "total_quantity": 125}, {"resourceType": "ICU_WITH_VENTILATOR", "description": "", "quantity": 0, "total_quantity": 0}, {"resourceType": "ICU_WITHOUT_VENTILATOR", "description": "", "quantity": 0, "total_quantity": 0}, {"resourceType": "BED_WITH_OXYGEN", "description": "", "quantity": 0, "total_quantity": 10}, {"resourceType": "BED_WITHOUT_OXYGEN", "description": "", "quantity": 0, "total_quantity": 115}], "vendor": {"name": "Aarihant Ayurvedic & Aarihant Homoeopathic", "debugText": null, "uniqueId": "SomeState-Gandhinagar-SomeCity-Aarihant Ayurvedic & Aarihant Homoeopathic", "address": {"completeAddress": "20 GROUND FLOOR SWASTIK COMPLEX BELLOW IDP SCHOOL MOTERA NR BANK OF BARODA, VILLAGE GATE, Motera Stadium Rd, opp. MOTERA, Motera, Ahmedabad, Gujarat 380005, India", "city": "SomeCity", "district": "Gandhinagar", "state": "SomeState"}}}"""
 
         self._commonTest(loaded_json_data_str, expected_serialized_hospital)
+
+    def testAdvanced(self):
+        self.maxDiff = 2000
+        loaded_json_data_str = """
+        {"hospital_name": "Aadit Nursing Home", "hospital_poc_name": "Dr. Ankur Mehta", "hospital_poc_designation": "Nodal Officer", "hospital_poc_phone": "9537121211", "charges": "PRIVATE", "hospital_address": "2, Makarand Desai Marg, Santoor Park,Behind Mother\'s School, Shakti Nagar Society, Gotri, Vadodara, Gujarat 390021, India", "district": "Vadodara", "area": "Vadodara", "total_beds_allocated_to_covid": 10, "total_icu_beds_with_ventilator": 0, "total_icu_beds_without_ventilator": 0, "total_beds_with_oxygen": 10, "total_beds_without_oxygen": 0, "available_icu_beds_with_ventilator": 0, "available_icu_beds_without_ventilator": 0, "available_beds_with_oxygen": 0, "available_beds_without_oxygen": 0, "pincode": "390021"}"""
+
+        expected_serialized_hospital = ""
+
+        self._commonTest(loaded_json_data_str, expected_serialized_hospital)
