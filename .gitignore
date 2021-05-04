@@ -2,3 +2,4 @@ venv
 upload/
 *.pyc
 .ipynb_checkpoints
+.idea
