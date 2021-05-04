@@ -7,11 +7,14 @@ from ranchi_parser import get_ranchi_hospitals
 from database_helper import upload_hospitals
 from haryana_parser import get_haryana_hospitals
 
+_VERSION = 1
+
 
 def main(request):
     state_filter = request.get('state', None) if request else None
     city_filter = request.get('city', None) if request else None
-    print("Filters: {}, {}".format(state_filter, city_filter))
+    job_id = "Parser{}-{}-{}-{}".format(_VERSION, round(time.time()),
+                                        state_filter, city_filter)
     # Add if-else based on state and city.
     if state_filter == "UP" and city_filter == "Noida":
         url_hospitals_map = get_noida_hospitals()
@@ -30,7 +33,7 @@ def main(request):
         hospitals = url_hospitals_map[url]
         start = time.time()
         size = len(hospitals)
-        upload_hospitals(hospitals)
+        upload_hospitals(hospitals, job_id)
         output = {
             "state": state_filter,
             "url": url,

@@ -21,11 +21,14 @@ def get_hospital_data(hosp_data):
         Resource(ResourceType.BED_WITHOUT_OXYGEN, 'Vacant_normal',
                  hosp_data['Vacant_normal'])
     ]
-    return Hospital(hosp_data['name'], hosp_data['address'],
+    hosp = Hospital(hosp_data['name'], hosp_data['address'],
                     'Gautam Buddh Nagar', 'Noida', 'Uttar Pradesh',
                     hosp_data['location_url'],
                     dateutil.parser.isoparse(hosp_data['updated_at']),
                     resources)
+    hosp.url = NOIDA_URL
+    hosp.debug_data = str(hosp_data)
+    return hosp
 
 
 def get_noida_hospitals():
