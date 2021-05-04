@@ -17,15 +17,16 @@ def resource_to_json(resource: Resource):
     }
 
 
-def hospital_to_json(hospital: Hospital):
-    h_id = "{}-{}-{}-{}".format(hospital.state, hospital.district, hospital.city, hospital.name)
+def hospital_to_json(hospital: Hospital, job_id):
+    h_id = "{}-{}-{}-{}".format(hospital.state, hospital.district,
+                                hospital.city, hospital.name)
     resources_json_array = [
         resource_to_json(resource) for resource in hospital.resources
     ]
     json_obj = {
         "lastUpdatedAt": hospital.last_updated.isoformat(),
-        "scrapedFrom": "TODO",
-        "jobId": "TODO",
+        "scrapedFrom": hospital.url,
+        "jobId": job_id,
         "resources": resources_json_array,
         "vendor": {
             "name": hospital.name,
@@ -73,11 +74,15 @@ def get_request():
     return requests.get(url)
 
 
-def upload_hospitals(hospitals: List[Hospital]):
+def upload_hospitals(hospitals: List[Hospital], job_id):
     client = requests.session()
+    first = True
     for hospital in hospitals:
-        json_hospital = hospital_to_json(hospital)
-        print("Uploading: {}".format(json_hospital["vendor"]["id"]))
+        json_hospital = hospital_to_json(hospital, job_id)
+        print("Uploading: {}".format(json_hospital["vendor"]["uniqueId"]))
+        if first:
+            print(json_hospital)
+            first = False
         resp = post_request(json_hospital, client=client)
         if resp.status_code != 200:
             raise AssertionError("Update failed with {}, {}".format(

@@ -167,6 +167,8 @@ def get_data(state_filter=None, city_filter=None) -> Mapping[str, List]:
                 datetime.fromtimestamp(
                     data.get('last_updated_on', now.timestamp()) / 1000),
                 resources)
+            hospital.url = URL
+            hospital.debug_text = json.dumps(data)
             output.append(hospital)
         source_data[URL] = output
     return source_data

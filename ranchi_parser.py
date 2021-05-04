@@ -38,6 +38,8 @@ def get_ranchi_hospitals():
         ]
         hosp = Hospital(row_data['hosp_name'], None, 'Ranchi', 'Ranchi',
                         'Jharkhand', '', last_updated, resources)
+        hosp.url = RANCHI_URL
+        hosp.debug_text = str(row_data)
         hospital_data.append(hosp)
     return {RANCHI_URL: hospital_data}
 

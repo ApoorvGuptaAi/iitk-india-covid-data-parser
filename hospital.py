@@ -18,8 +18,8 @@ class ResourceType(Enum):
 class Resource:
     resource_type: ResourceType
     resource_description: str
-    resource_qty: int   # What is available atm
-    total_qty: Optional[int] = 0   # Inventory = available + unavailable 
+    resource_qty: int  # What is available atm
+    total_qty: Optional[int] = 0  # Inventory = available + unavailable
 
 
 @dataclass
@@ -28,12 +28,12 @@ class Hospital:
     address: str
     district: str
     city: str
-    state: str    # Required.
+    state: str  # Required.
     location: str
     last_updated: datetime
     resources: List[Resource]
-    debug_text: Optional[str]
-    url: Optional[str]
+    debug_text: Optional[str] = None
+    url: Optional[str] = None
 
 
 def map_raw_resource_str_to_type(resource_str: str) -> ResourceType:
