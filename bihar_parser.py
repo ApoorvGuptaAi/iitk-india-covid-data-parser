@@ -22,8 +22,12 @@ def get_updated_timestamp(updated_text):
 
 def parse_hospital_data(hospital_tds):
     parsed_data = {
-        'district': hospital_tds[0].find('span', {'class': 'bed-district'}).text,
-        'name': hospital_tds[1].find('span', {'class': 'bed-title'}).text,
+        'district': hospital_tds[0].find('span', {
+            'class': 'bed-district'
+        }).text,
+        'name': hospital_tds[1].find('span', {
+            'class': 'bed-title'
+        }).text,
         'map_href': hospital_tds[1].find('a')['href'],
         'category': hospital_tds[2].text,
         'last_updated': get_updated_timestamp(hospital_tds[3].text),
@@ -44,33 +48,35 @@ def get_bihar_data(bihar_soup):
         hospital_tds = hospital_row.find_all('td')
         hospital_data = parse_hospital_data(hospital_tds)
         resources = [
-            Resource(
-                resource_type=ResourceType.BEDS,
-                resource_description='hospital beds',
-                resource_qty=hospital_data['vacant_beds'],
-                total_qty=hospital_data['total_beds']),
-            Resource(
-                resource_type=ResourceType.ICUS,
-                resource_description='icu beds',
-                resource_qty=hospital_data['vacant_icu_beds'],
-                total_qty=hospital_data['icu_beds']),
+            Resource(resource_type=ResourceType.BEDS,
+                     resource_description='hospital beds',
+                     resource_qty=hospital_data['vacant_beds'],
+                     total_qty=hospital_data['total_beds']),
+            Resource(resource_type=ResourceType.ICUS,
+                     resource_description='icu beds',
+                     resource_qty=hospital_data['vacant_icu_beds'],
+                     total_qty=hospital_data['icu_beds']),
         ]
         hospital = Hospital('', '', '', '', '', '', datetime.now(), resources)
-        all_hospitals.append(hospital)
         hospital.name = hospital_data['name']
         hospital.district = hospital_data['district']
         hospital.state = 'BIHAR'
         hospital.location = hospital_data['map_href']
         hospital.last_updated = hospital_data['last_updated']
+        hospital.debug_text = str(hospital_tds)
+        if not hospital.last_updated:
+            print("Skipping hospital {}-{} due to missing timestamp",
+                  hospital.name, hospital.district)
+            continue
+        hospital.url = BIHAR_URL
+        all_hospitals.append(hospital)
     return all_hospitals
 
 
 def get_bihar_hospitals():
     scraped_data = get_data_from_web(web_url=BIHAR_URL)
     all_hospitals = get_bihar_data(scraped_data)
-    return {
-        BIHAR_URL: all_hospitals
-    }
+    return {BIHAR_URL: all_hospitals}
 
 
 def main():

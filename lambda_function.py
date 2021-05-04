@@ -6,6 +6,7 @@ from noida_up_parser import get_noida_hospitals
 from ranchi_parser import get_ranchi_hospitals
 from database_helper import upload_hospitals
 from haryana_parser import get_haryana_hospitals
+from bihar_parser import get_bihar_hospitals
 
 _VERSION = 1
 
@@ -23,6 +24,8 @@ def main(request):
         url_hospitals_map = get_ranchi_hospitals()
     elif state_filter == "Haryana":
         url_hospitals_map = get_haryana_hospitals()
+    elif state_filter == "Bihar":
+        url_hospitals_map = get_bihar_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -59,4 +62,4 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     #print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
-    print(main({'state': 'Haryana'}))
+    print(main({'state': 'Bihar'}))
