@@ -128,8 +128,10 @@ def get_bed_resources(hosp_json):
         resource_obj = resources[resource_type]
         if key.startswith("total_"):
             resource_obj.total_qty = hosp_json[key]
+            print(key, hosp_json[key], resource_obj)
         elif key.startswith("available_"):
-            resource_obj.qty = hosp_json[key]
+            resource_obj.resource_qty = hosp_json[key]
+            print(key, hosp_json[key], resource_obj)
         elif key.startswith("amc_") or key.startswith("private_"):
             pass
         else:
@@ -151,6 +153,8 @@ def parse_hospital(data, state, city):
         '',  #location
         datetime.fromtimestamp(last_updated_secs),
         resources)
+    if "pincode" in data:
+        hospital.pincode = data["pincode"]
     hospital.debug_text = json.dumps(data)
     return hospital
 

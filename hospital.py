@@ -34,3 +34,4 @@ class Hospital:
     resources: List[Resource]
     debug_text: Optional[str] = None
     url: Optional[str] = None
+    pincode: Optional[int] = 0

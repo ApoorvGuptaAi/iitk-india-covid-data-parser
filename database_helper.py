@@ -9,12 +9,14 @@ from hospital import *
 
 #https://www.getpostman.com/collections/ac744d6c750be50db61e
 def resource_to_json(resource: Resource):
-    return {
+    obj = {
         "resourceType": resource.resource_type.name,
-        "description": resource.resource_description,
         "quantity": resource.resource_qty,
         "total_quantity": resource.total_qty
     }
+    if resource.resource_description:
+        obj["description"] = resource.resource_description
+    return obj
 
 
 def hospital_to_json(hospital: Hospital, job_id):
@@ -23,22 +25,26 @@ def hospital_to_json(hospital: Hospital, job_id):
     resources_json_array = [
         resource_to_json(resource) for resource in hospital.resources
     ]
+    vendor_obj = {
+        "name": hospital.name,
+        "debugText": hospital.debug_text,
+        "uniqueId": h_id,
+        "address": {
+            "completeAddress": hospital.address,
+            "city": hospital.city,
+            "district": hospital.district,
+            "state": hospital.state
+        }
+    }
+    if hospital.pincode:
+        vendor_obj["address"]["pincode"] = hospital.pincode
+
     json_obj = {
         "lastUpdatedAt": hospital.last_updated.isoformat(),
         "scrapedFrom": hospital.url,
         "jobId": job_id,
         "resources": resources_json_array,
-        "vendor": {
-            "name": hospital.name,
-            "debugText": hospital.debug_text,
-            "uniqueId": h_id,
-            "address": {
-                "completeAddress": hospital.address,
-                "city": hospital.city,
-                "district": hospital.district,
-                "state": hospital.state
-            }
-        }
+        "vendor": vendor_obj
     }
 
     return json_obj
