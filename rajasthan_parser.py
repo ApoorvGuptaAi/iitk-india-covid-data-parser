@@ -42,27 +42,27 @@ def get_rajasthan_hospitals():
             Resource(
                 resource_type = ResourceType.BED_WITHOUT_OXYGEN,
                 resource_description = None,
-                resource_qty = row_data['general_beds_available'],
-                total_qty = row_data['general_beds_total']
+                resource_qty = int(row_data['general_beds_available']),
+                total_qty = int(row_data['general_beds_total'])
             ), Resource(
                 resource_type = ResourceType.BED_WITH_OXYGEN,
                 resource_description = None,
-                resource_qty = row_data['oxygen_beds_available'],
-                total_qty = row_data['oxygen_beds_total']
+                resource_qty = int(row_data['oxygen_beds_available']),
+                total_qty = int(row_data['oxygen_beds_total'])
             ), Resource(
                 resource_type = ResourceType.ICU_WITH_VENTILATOR,
                 resource_description = None,
-                resource_qty = row_data['icu_with_ventilator_beds_available'],
-                total_qty = row_data['icu_with_ventilator_beds_total']
+                resource_qty = int(row_data['icu_with_ventilator_beds_available']),
+                total_qty = int(row_data['icu_with_ventilator_beds_total'])
             ), Resource(
                 resource_type = ResourceType.ICU_WITHOUT_VENTILATOR,
                 resource_description = None,
-                resource_qty = row_data['icu_without_ventilator_beds_available'],
-                total_qty = row_data['icu_without_ventilator_beds_total']
+                resource_qty = int(row_data['icu_without_ventilator_beds_available']),
+                total_qty = int(row_data['icu_without_ventilator_beds_total'])
             )
         ]
         hosp = Hospital(row_data['hosp_name'], None, row_data['district'], None,
-                        'Rajasthan', '', None, resources)
+                        'Rajasthan', '', datetime.fromtimestamp(0), resources)
         hosp.url = HOSPITAL_URL
         hosp.debug_text = str(row_data)
         hospital_data.append(hosp)
