@@ -53,7 +53,7 @@ def main(request):
         resources_summary = summarize_resources(hospitals)
         start = time.time()
         size = len(hospitals)
-        # upload_hospitals(hospitals, job_id)
+        upload_hospitals(hospitals, job_id)
         output = {
             "state": state_filter,
             "url": url,
