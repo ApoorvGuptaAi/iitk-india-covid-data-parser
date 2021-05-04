@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import re
 
-from hospital import Hospital, Resource, map_raw_resource_str_to_type
+from hospital import Hospital, Resource, ResourceType
 from database_helper import upload_hospitals
 
 covid_home_url_maps = [{
@@ -103,6 +103,58 @@ covid_home_url_maps = [{
 }]
 
 
+def map_raw_resource_str_to_type(resource_str: str) -> ResourceType:
+    if resource_str.endswith("beds_allocated_to_covid"):
+        return ResourceType.BEDS
+    if resource_str.endswith("beds_without_oxygen"):
+        return ResourceType.BED_WITHOUT_OXYGEN
+    if resource_str.endswith("beds_with_oxygen"):
+        return ResourceType.BED_WITH_OXYGEN
+    if resource_str.endswith("icu_beds_with_ventilator"):
+        return ResourceType.ICU_WITH_VENTILATOR
+    if resource_str.endswith("icu_beds_without_ventilator"):
+        return ResourceType.ICU_WITHOUT_VENTILATOR
+    return None
+
+
+def get_bed_resources(hosp_json):
+    resources = {}
+    for key in hosp_json:
+        resource_type = map_raw_resource_str_to_type(key)
+        if not resource_type:
+            continue
+        if resource_type not in resources:
+            resources[resource_type] = Resource(resource_type, "", 0, 0)
+        resource_obj = resources[resource_type]
+        if key.startswith("total_"):
+            resource_obj.total_qty = hosp_json[key]
+        elif key.startswith("available_"):
+            resource_obj.qty = hosp_json[key]
+        elif key.startswith("amc_") or key.startswith("private_"):
+            pass
+        else:
+            raise AssertionError("Unexpected key: " + key + str(hosp_json))
+    return list(resources.values())
+
+
+def parse_hospital(data, state, city):
+    resources = get_bed_resources(data)
+    last_updated_secs = 0
+    if 'last_updated_on' in data:
+        last_updated_secs = data.get('last_updated_on') / 1000
+    hospital = Hospital(
+        data.get('hospital_name', ''),
+        data.get('hospital_address', ''),
+        data.get('district', ''),
+        city,
+        state,
+        '',  #location
+        datetime.fromtimestamp(last_updated_secs),
+        resources)
+    hospital.debug_text = json.dumps(data)
+    return hospital
+
+
 # List of web data sources
 def get_data_from_web(state_filter, city_filter):
     home_response_dict = {}
@@ -145,30 +197,8 @@ def get_data(state_filter=None, city_filter=None) -> Mapping[str, List]:
         output = []
 
         for data in bed_data:
-            resources = []
-            empty_resources = 0
-            non_empty_resources = 0
-            for resource in get_bed_resource_type(data.keys()):
-                if data[resource] == 0:
-                    empty_resources += 1
-                else:
-                    non_empty_resources += 1
-                resource_type = map_raw_resource_str_to_type(resource)
-                assert resource_type
-                resources.append(
-                    Resource(resource_type, resource, data[resource]))
-            hospital = Hospital(
-                data.get('hospital_name', ''),
-                data.get('hospital_address', ''),
-                data.get('district', ''),
-                city,
-                state,
-                '',  #location
-                datetime.fromtimestamp(
-                    data.get('last_updated_on', now.timestamp()) / 1000),
-                resources)
+            hospital = parse_hospital(data, state, city)
             hospital.url = URL
-            hospital.debug_text = json.dumps(data)
             output.append(hospital)
         source_data[URL] = output
     return source_data

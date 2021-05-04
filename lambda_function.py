@@ -62,4 +62,4 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     #print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
-    print(main({'state': 'Bihar'}))
+    main({'state': 'Gujarat'})

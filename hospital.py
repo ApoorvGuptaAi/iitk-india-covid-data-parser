@@ -34,17 +34,3 @@ class Hospital:
     resources: List[Resource]
     debug_text: Optional[str] = None
     url: Optional[str] = None
-
-
-def map_raw_resource_str_to_type(resource_str: str) -> ResourceType:
-    if resource_str == "available_beds_allocated_to_covid":
-        return ResourceType.BEDS
-    if resource_str == "available_beds_without_oxygen":
-        return ResourceType.BED_WITHOUT_OXYGEN
-    if resource_str == "available_beds_with_oxygen":
-        return ResourceType.BED_WITH_OXYGEN
-    if resource_str == "available_icu_beds_with_ventilator":
-        return ResourceType.ICU_WITH_VENTILATOR
-    if resource_str == "available_icu_beds_without_ventilator":
-        return ResourceType.ICU_WITHOUT_VENTILATOR
-    return None

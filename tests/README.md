@@ -1,0 +1,1 @@
+From main directory, run: `PYTHONPATH=. python -m pytest tests/test_generic_parser.py`
