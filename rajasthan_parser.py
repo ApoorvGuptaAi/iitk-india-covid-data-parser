@@ -11,17 +11,17 @@ COL_NAMES = [
     'district', 
     'hosp_name', 
     'general_beds_total',
-    'general_beds_available',
     'general_beds_occupied',
+    'general_beds_available',
     'oxygen_beds_total',
-    'oxygen_beds_available',
     'oxygen_beds_occupied',
+    'oxygen_beds_available',
     'icu_without_ventilator_beds_total',
-    'icu_without_ventilator_beds_available',
     'icu_without_ventilator_beds_occupied',
+    'icu_without_ventilator_beds_available',
     'icu_with_ventilator_beds_total',
-    'icu_with_ventilator_beds_available',
     'icu_with_ventilator_beds_occupied',
+    'icu_with_ventilator_beds_available',
     'hospital_helpline',
     'district_control_line'
 ]
@@ -32,7 +32,8 @@ def get_rajasthan_hospitals():
     page = req_obj.get(HOSPITAL_URL)
     soup = BeautifulSoup(page.text, 'html.parser')
     tables = soup.find('table')
-    for row in tables.find_all('tr'):
+    # Skip the first row as it is about totals
+    for row in tables.find('tbody').find_all('tr')[1:]:
         row_data = [d.text for d in row.find_all('td')]
         if not row_data:
             continue
@@ -71,6 +72,7 @@ def get_rajasthan_hospitals():
 
 def main():
     hospital_data = get_rajasthan_hospitals()
+    print(len(hospital_data[HOSPITAL_URL]))
     print(hospital_data)
     #upload_hospitals(hospital_data)
 
