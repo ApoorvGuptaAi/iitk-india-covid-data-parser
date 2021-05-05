@@ -10,8 +10,8 @@ class ResourceType(Enum):
     BED_WITH_OXYGEN = "BED_WITH_OXYGEN"
     ICU_WITH_VENTILATOR = "ICU_WITH_VENTILATOR"
     ICU_WITHOUT_VENTILATOR = "ICU_WITHOUT_VENTILATOR"
-    BEDS = "BEDS"   # all beds, w/ or w/o oxygen
-    ICUS = "ICUS"   # all icus, w/ or w/o ventilators.
+    BEDS = "BEDS"  # all beds, w/ or w/o oxygen
+    ICUS = "ICUS"  # all icus, w/ or w/o ventilators.
 
 
 @dataclass
@@ -25,13 +25,14 @@ class Resource:
 @dataclass
 class Hospital:
     name: str
-    address: str
-    district: str
-    city: str
-    state: str  # Required.
-    location: str
-    last_updated: datetime   # The datetime the website entry was updated. Use time 0 if not available from the website.
-    resources: List[Resource]
+    address: Optional[str] = ""
+    district: Optional[str] = ""
+    city: Optional[str] = ""
+    state: Optional[str] = ""  # Required.
+    location: Optional[str] = ""
+    # The datetime the website entry was updated. Use time 0 if not available from the website.
+    last_updated: Optional[datetime.datetime] = None
+    resources: Optional[List[Resource]] = None
     debug_text: Optional[str] = None
     url: Optional[str] = None
     pincode: Optional[int] = 0

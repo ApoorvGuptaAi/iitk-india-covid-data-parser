@@ -2,15 +2,16 @@ from typing import List
 import json
 import time
 
-from hospital import Resource, Hospital
+from bihar_parser import get_bihar_hospitals
+from maharashtra_navi_mumbai_parser import get_hospital_data as get_maharashtra_navi_mumbai_data
 from database_helper import upload_hospitals, resource_to_json
 from generic_hospital_parser import get_data as generic_hospital_get_data
-from noida_up_parser import get_noida_hospitals
-from ranchi_parser import get_ranchi_hospitals
 from haryana_parser import get_haryana_hospitals
-from bihar_parser import get_bihar_hospitals
-from uttarakhand_parser import get_uttarakhand_hospitals
+from hospital import Resource, Hospital
+from noida_up_parser import get_noida_hospitals
 from rajasthan_parser import get_rajasthan_hospitals
+from ranchi_parser import get_ranchi_hospitals
+from uttarakhand_parser import get_uttarakhand_hospitals
 
 _VERSION = 1
 
@@ -47,6 +48,8 @@ def main(request):
         url_hospitals_map = get_uttarakhand_hospitals()
     elif state_filter == "Rajasthan":
         url_hospitals_map = get_rajasthan_hospitals()
+    elif state_filter == "Maharashtra" and city_filter == "Navi Mumbai":
+        url_hospitals_map = get_maharashtra_navi_mumbai_data()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -85,4 +88,5 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     #print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
-    print(main({'state': 'Rajasthan'}))
+    # print(main({'state': 'Rajasthan'}))
+    print(main({'state': 'Maharashtra', 'city': 'Navi Mumbai'}))
