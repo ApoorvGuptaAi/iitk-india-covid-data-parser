@@ -15,11 +15,11 @@ def get_data_from_web():
 def get_hospital_data(hosp_data):
     resources = [
         Resource(ResourceType.ICU_WITH_VENTILATOR, 'Vacant_ventilator',
-                 hosp_data['Vacant_ventilator']),
+                 int(hosp_data['Vacant_ventilator'])),
         Resource(ResourceType.BED_WITH_OXYGEN, 'Vacant_oxygen',
-                 hosp_data['Vacant_oxygen']),
+                 int(hosp_data['Vacant_oxygen'])),
         Resource(ResourceType.BED_WITHOUT_OXYGEN, 'Vacant_normal',
-                 hosp_data['Vacant_normal'])
+                 int(hosp_data['Vacant_normal']))
     ]
     hosp = Hospital(hosp_data['name'], hosp_data['address'],
                     'Gautam Buddh Nagar', 'Noida', 'Uttar Pradesh',
