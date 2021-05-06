@@ -38,6 +38,8 @@ def hospital_to_json(hospital: Hospital, job_id):
     }
     if hospital.pincode:
         vendor_obj["address"]["pinCode"] = hospital.pincode
+    if hospital.url:
+        vendor_obj["website"] = hospital.url
 
     json_obj = {
         "lastUpdatedAt": hospital.last_updated.isoformat(),
