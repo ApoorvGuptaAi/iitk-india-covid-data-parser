@@ -14,6 +14,7 @@ from ranchi_parser import get_ranchi_hospitals
 from uttarakhand_parser import get_uttarakhand_hospitals
 from gujarat_gandhinagar_parser import get_data as get_gujarat_gandhinagar_data
 from delhi_parser_official import get_delhi_hospitals
+from puducherry_parser import get_puducherry_hospitals
 
 _VERSION = 1
 
@@ -57,6 +58,8 @@ def main(request):
         url_hospitals_map = get_gujarat_gandhinagar_data()
     elif state_filter == "Delhi":
         url_hospitals_map = get_delhi_hospitals()
+    elif state_filter == "Puducherry":
+        url_hospitals_map = get_puducherry_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
