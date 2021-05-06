@@ -15,6 +15,7 @@ from uttarakhand_parser import get_uttarakhand_hospitals
 from gujarat_gandhinagar_parser import get_data as get_gujarat_gandhinagar_data
 from delhi_parser_official import get_delhi_hospitals
 from puducherry_parser import get_puducherry_hospitals
+from thane_parser import get_thane_hospitals
 
 _VERSION = 1
 
@@ -60,6 +61,8 @@ def main(request):
         url_hospitals_map = get_delhi_hospitals()
     elif state_filter == "Puducherry":
         url_hospitals_map = get_puducherry_hospitals()
+    elif state_filter == "Maharashtra" and city_filter == "Thane":
+        url_hospitals_map = get_thane_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -97,10 +100,11 @@ def lambda_handler(event, context):
 
 
 if __name__ == "__main__":
-    #print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
+    # print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
     # print(main({'state': 'Rajasthan'}))
     # print(main({'state': 'Maharashtra', 'city': 'Navi Mumbai'}))
     # print(main({'state': 'Haryana'}))
     # print(main({'state': 'UP', 'city': 'Noida'}))
-    #print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
-    main({'state' : 'Delhi'})
+    # print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
+    # main({'state' : 'Delhi'})
+    print(main({'state': 'Maharashtra', 'city': 'Thane'}))
