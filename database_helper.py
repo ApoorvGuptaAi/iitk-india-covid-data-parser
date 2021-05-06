@@ -95,6 +95,6 @@ def upload_hospitals(hospitals: List[Hospital], job_id):
             raise AssertionError("Update failed with {}, {}".format(
                 resp.status_code, resp.text))
         json = resp.json()
-        print("UPLOADED as id", json["dataLead"]["_id"])
         if first:
+            print("UPLOADED as id", json["dataLead"]["_id"])
             first = False
