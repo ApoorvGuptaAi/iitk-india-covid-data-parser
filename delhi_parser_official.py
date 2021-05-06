@@ -48,9 +48,11 @@ def parse_hospital_resources(resources_details):
     if resource_type == None:
       continue
     for hospital_name, details in value.items():
+      if hospital_name == "All":
+        continue
       if hospital_name not in hospitals:
         hospital = Hospital(
-            hospital_name, "", "Delhi", "Delhi", "Delhi", "", None, []
+            hospital_name, "", "", "Delhi", "Delhi", "", None, []
         )
         hospitals[hospital_name] = hospital
       resource = Resource(resource_type, "beds", details['vacant'], details['total'])

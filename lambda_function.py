@@ -13,6 +13,7 @@ from rajasthan_parser import get_rajasthan_hospitals
 from ranchi_parser import get_ranchi_hospitals
 from uttarakhand_parser import get_uttarakhand_hospitals
 from gujarat_gandhinagar_parser import get_data as get_gujarat_gandhinagar_data
+from delhi_parser_official import get_delhi_hospitals
 
 _VERSION = 1
 
@@ -54,6 +55,8 @@ def main(request):
         url_hospitals_map = get_maharashtra_navi_mumbai_data()
     elif state_filter == "Gujarat" and city_filter == "Gandhinagar":
         url_hospitals_map = get_gujarat_gandhinagar_data()
+    elif state_filter == "Delhi":
+        url_hospitals_map = get_delhi_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -96,4 +99,5 @@ if __name__ == "__main__":
     # print(main({'state': 'Maharashtra', 'city': 'Navi Mumbai'}))
     # print(main({'state': 'Haryana'}))
     # print(main({'state': 'UP', 'city': 'Noida'}))
-    print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
+    #print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
+    main({'state' : 'Delhi'})
