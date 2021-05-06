@@ -98,4 +98,3 @@ def upload_hospitals(hospitals: List[Hospital], job_id):
         print("UPLOADED as id", json["dataLead"]["_id"])
         if first:
             first = False
-            break
