@@ -12,7 +12,7 @@ def resource_to_json(resource: Resource):
     obj = {
         "resourceType": resource.resource_type.name,
         "quantity": resource.resource_qty,
-        "total_quantity": resource.total_qty
+        "totalQuantity": resource.total_qty
     }
     if resource.resource_description:
         obj["description"] = resource.resource_description
