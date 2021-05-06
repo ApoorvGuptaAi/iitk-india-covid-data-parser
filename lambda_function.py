@@ -36,6 +36,7 @@ def main(request):
     print("Filters: {}, {}".format(state_filter, city_filter))
     job_id = "Parser{}-{}-{}-{}".format(_VERSION, round(time.time()),
                                         state_filter, city_filter)
+    print("JOBID: ", job_id)
     # Add if-else based on state and city.
     if state_filter == "UP" and city_filter == "Noida":
         url_hospitals_map = get_noida_hospitals()
