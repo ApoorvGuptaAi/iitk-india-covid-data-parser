@@ -35,7 +35,7 @@ def parse_hospital_row(data):
   hospital_address = data.find('a', {'class' : 'hospital-info'})['href'][len("javascript:showpopup("):-2].split(',')[1][1:-1]
   # phone_numer not yet supported
   # phone_number = data.find('a', {'class' : 'hospital-info'})['href'][len("javascript:showpopup("):-2].split(',')[2][1:-1]
-  return Hospital(hospital_name, hospital_address, "", "Surat", "Madhya Pradesh", "", parser.parse(last_updated_at+ "+05:30"), resources, "", SURAT_URL)
+  return Hospital(hospital_name, hospital_address, "", "Surat", "Gujarat", "", parser.parse(last_updated_at+ "+05:30"), resources, "", SURAT_URL)
 
 def parse_web_data(soup):
   hospitals = []
