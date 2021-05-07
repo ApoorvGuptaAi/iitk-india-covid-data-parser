@@ -25,10 +25,10 @@ def parse_hospital_row(data):
   total_resources = data.find_all('span', {'class' : 'count-text'})
   resources = [
                Resource(ResourceType.BEDS, "", int(total_resources[1].text[len('Total Vacant - '):]), int(total_resources[0].text[len('Total Beds - '):])),
-               Resource(ResourceType.BED_WITHOUT_OXYGEN, "", int(availability[0].text), None),
-               Resource(ResourceType.BED_WITH_OXYGEN, "", int(availability[1].text), None),
-               Resource(ResourceType.ICU_WITHOUT_VENTILATOR, "", int(availability[2].text), None),
-               Resource(ResourceType.ICU_WITH_VENTILATOR, "", int(availability[3].text), None)
+               Resource(ResourceType.BED_WITHOUT_OXYGEN, "", int(availability[0].text)),
+               Resource(ResourceType.BED_WITH_OXYGEN, "", int(availability[1].text)),
+               Resource(ResourceType.ICU_WITHOUT_VENTILATOR, "", int(availability[2].text)),
+               Resource(ResourceType.ICU_WITH_VENTILATOR, "", int(availability[3].text))
   ]
   last_updated_at = data.find('span', {'class' : 'badge-lastupdated'}).string[len("Last Updated- "):]
   hospital_name = data.find('a', {'class' : 'hospital-info'})['href'][len("javascript:showpopup("):-2].split(',')[0][1:-1]#data.find('a', {'class' : 'hospital-info'}).text
