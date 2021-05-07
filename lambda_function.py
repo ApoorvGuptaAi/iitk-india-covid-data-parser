@@ -16,6 +16,7 @@ from gujarat_gandhinagar_parser import get_data as get_gujarat_gandhinagar_data
 from delhi_parser_official import get_delhi_hospitals
 from puducherry_parser import get_puducherry_hospitals
 from thane_parser import get_thane_hospitals
+from gujarat_surat_parser import get_surat_hospitals
 
 _VERSION = 1
 
@@ -28,8 +29,10 @@ def summarize_resources(hospitals: List[Hospital]):
             if r_type not in resources:
                 resources[r_type] = Resource(r_type, '', 0, 0)
             summary = resources[r_type]
-            summary.total_qty += resource.total_qty
-            summary.resource_qty += resource.resource_qty
+            if resource.total_qty != None:
+              summary.total_qty += resource.total_qty
+            if resource.resource_qty != None:
+              summary.resource_qty += resource.resource_qty
     return {k: resource_to_json(v) for (k, v) in resources.items()}
 
 
@@ -63,6 +66,8 @@ def main(request):
         url_hospitals_map = get_puducherry_hospitals()
     elif state_filter == "Maharashtra" and city_filter == "Thane":
         url_hospitals_map = get_thane_hospitals()
+    elif state_filter == "Gujarat" and city_filter == "Surat":
+        url_hospitals_map = get_surat_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -107,4 +112,4 @@ if __name__ == "__main__":
     # print(main({'state': 'UP', 'city': 'Noida'}))
     # print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
     # main({'state' : 'Delhi'})
-    print(main({'state': 'Maharashtra', 'city': 'Thane'}))
+    print(main({'state': 'Gujarat', 'city': 'Surat'}))
