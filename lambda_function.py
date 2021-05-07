@@ -17,6 +17,7 @@ from delhi_parser_official import get_delhi_hospitals
 from puducherry_parser import get_puducherry_hospitals
 from thane_parser import get_thane_hospitals
 from gujarat_surat_parser import get_surat_hospitals
+from punjab_ludhiana_parser import get_ludhiana_hospitals
 
 _VERSION = 1
 
@@ -68,6 +69,8 @@ def main(request):
         url_hospitals_map = get_thane_hospitals()
     elif state_filter == "Gujarat" and city_filter == "Surat":
         url_hospitals_map = get_surat_hospitals()
+    elif state_filter == "Punjab" and city_filter == "Ludhiana":
+        url_hospitals_map = get_ludhiana_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -112,4 +115,5 @@ if __name__ == "__main__":
     # print(main({'state': 'UP', 'city': 'Noida'}))
     # print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
     # main({'state' : 'Delhi'})
-    print(main({'state': 'Gujarat', 'city': 'Surat'}))
+    # print(main({'state': 'Gujarat', 'city': 'Surat'}))
+    print(main({'state': 'Punjab', 'city': 'Ludhiana'}))
