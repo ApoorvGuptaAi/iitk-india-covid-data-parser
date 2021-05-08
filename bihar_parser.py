@@ -17,7 +17,7 @@ def get_data_from_web(web_url):
 
 def get_updated_timestamp(updated_text):
     if updated_text:
-        return parser.parse(updated_text)
+        return parser.parse(updated_text, dayfirst=True)
 
 
 def parse_hospital_data(hospital_tds):

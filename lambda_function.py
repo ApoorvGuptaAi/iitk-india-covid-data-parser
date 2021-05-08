@@ -32,9 +32,9 @@ def summarize_resources(hospitals: List[Hospital]):
                 resources[r_type] = Resource(r_type, '', 0, 0)
             summary = resources[r_type]
             if resource.total_qty != None:
-              summary.total_qty += resource.total_qty
+                summary.total_qty += resource.total_qty
             if resource.resource_qty != None:
-              summary.resource_qty += resource.resource_qty
+                summary.resource_qty += resource.resource_qty
     return {k: resource_to_json(v) for (k, v) in resources.items()}
 
 
@@ -116,8 +116,9 @@ if __name__ == "__main__":
     # print(main({'state': 'Maharashtra', 'city': 'Navi Mumbai'}))
     # print(main({'state': 'Haryana'}))
     # print(main({'state': 'UP', 'city': 'Noida'}))
-    # print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
+    print(main({'state': 'Gujarat', 'city': 'Gandhinagar'}))
     # main({'state' : 'Delhi'})
-    # print(main({'state': 'Gujarat', 'city': 'Surat'}))
+    main({'state': 'Uttarakhand'})
+    print(main({'state': 'Gujarat', 'city': 'Surat'}))
     print(main({'state': 'Punjab', 'city': 'Ludhiana'}))
     # print(main({'state': 'Tamil Nadu'}))

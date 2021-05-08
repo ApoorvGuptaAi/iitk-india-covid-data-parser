@@ -13,7 +13,7 @@ HARYANA_URL = 'https://coronaharyana.in'
 
 
 def get_updated_timestamp(updated_text):
-    return parser.parse(updated_text[len('Updated On: '):])
+    return parser.parse(updated_text[len('Updated On: '):], dayfirst=True)
 
 
 def parse_hospital(hospital_div, district):

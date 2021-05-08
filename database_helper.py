@@ -90,11 +90,14 @@ def upload_hospitals(hospitals: List[Hospital], job_id):
         print("Uploading: {}".format(json_hospital["vendor"]["uniqueId"]))
         if first:
             print(json_hospital)
-        resp = post_request(json_hospital, client=client)
-        if resp.status_code != 200:
-            raise AssertionError("Update failed with {}, {}".format(
-                resp.status_code, resp.text))
-        json = resp.json()
+        json = None
+        if not os.environ.get("INDIA_COVID_SKIP_UPLOADING", ""):
+            resp = post_request(json_hospital, client=client)
+            if resp.status_code != 200:
+                raise AssertionError("Update failed with {}, {}".format(
+                    resp.status_code, resp.text))
+            json = resp.json()
         if first:
-            print("UPLOADED as id", json["dataLead"]["_id"])
+            if json:
+                print("UPLOADED as id", json["dataLead"]["_id"])
             first = False

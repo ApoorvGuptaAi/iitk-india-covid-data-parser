@@ -25,7 +25,8 @@ def createBaseHospital(tableRowEl, hospitals):
     name = nameEl.get_text()
     if name not in hospitals:
         hospital = Hospital(name)
-        hospital.last_updated = parser.parse(tds[7].get_text() + "+05:30")
+        hospital.last_updated = parser.parse(tds[7].get_text() + "+05:30",
+                                             dayfirst=True)
         hospital.url = nameEl.find('a')['href']
         hospital.address = tds[1].get_text()
         hospital.state = "Gujarat"
