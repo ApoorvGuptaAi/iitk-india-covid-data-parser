@@ -207,9 +207,11 @@ def get_data(state_filter=None, city_filter=None) -> Mapping[str, List]:
 
 
 def main():
-    data = get_output_from_data()
-    for url in data:
-        upload_hospitals(data[url])
+    TN_URL = 'https://covidtnadu.com/data/covidtnadu.com/bed_data.json'
+    hospitals = get_data(state_filter="Tamil Nadu")
+    print(len(hospitals[TN_URL]))
+    for hospital in hospitals[TN_URL]:
+        print(hospital.last_updated)
 
 
 if __name__ == "__main__":

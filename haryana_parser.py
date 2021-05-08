@@ -98,6 +98,8 @@ def main():
     print(len(hospital_data))
     print(len(hospital_data[HARYANA_URL]))
     print(hospital_data[HARYANA_URL][0])
+    for hospital in hospital_data[HARYANA_URL]:
+        print(hospital.last_updated)
     #upload_hospitals(hospital_data)
 
 

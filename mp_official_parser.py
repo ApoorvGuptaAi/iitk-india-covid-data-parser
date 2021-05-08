@@ -76,6 +76,8 @@ def get_mp_hospitals():
 def main():
     hospital_list = get_mp_hospitals()
     print(len(hospital_list[MP_URL]))
+    for hospital in hospital_list[MP_URL]:
+        print(hospital.last_updated)
 
 
 if __name__ == "__main__":

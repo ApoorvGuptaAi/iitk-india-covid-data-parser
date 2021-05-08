@@ -63,11 +63,12 @@ def parse_hospital_resources(resources_details):
             hospitals[hospital_name].resources.append(resource)
             # Using the last updated details from the first resource
             if hospitals[
-                    hospital_name].last_updated == None and 'last_udpated_at' in details:
+                    hospital_name].last_updated == None and 'last_updated_at' in details:
                 hospitals[hospital_name].last_updated = parser.parse(
                     details['last_updated_at'] + "IST",
                     tzinfos=tzinfos,
                     dayfirst=True)
+        break
     return hospitals
 
 

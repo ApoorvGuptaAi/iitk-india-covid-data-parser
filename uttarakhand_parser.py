@@ -73,6 +73,8 @@ def get_uttarakhand_hospitals():
 def main():
     hospital_data = get_uttarakhand_hospitals()
     print(len(hospital_data[UTTARAKHAND_URL]))
+    for hospital in hospital_data[UTTARAKHAND_URL]:
+        print(hospital.last_updated)
     #upload_hospitals(hospital_data)
 
 

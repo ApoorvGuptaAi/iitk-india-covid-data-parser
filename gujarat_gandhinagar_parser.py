@@ -57,3 +57,15 @@ def get_data():
     return {
         "https://vmc.gov.in/HospitalModuleGMC/Default.aspx": hospitals.values()
     }
+
+
+def main():
+    hospitals = get_data()
+    hospital_list = hospitals["https://vmc.gov.in/HospitalModuleGMC/Default.aspx"]
+    print(len(hospital_list))
+    for hospital in hospital_list:
+        print(hospital.last_updated)
+
+
+if __name__ == "__main__":
+    main()
