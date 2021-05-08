@@ -45,8 +45,9 @@ def parse_hospital_row(row_data):
         Resource(ResourceType.ICU_WITH_VENTILATOR, "", int(columns[16].text),
                  int(columns[14].text)),
     ]
+    # Data is not in day first order.
     return Hospital(columns[0].text, "", columns[1].text, "", "Tamil Nadu", "",
-                    parser.parse(columns[17].text + " +05:30", dayfirst=True),
+                    parser.parse(columns[17].text + "+05:30"),
                     resources, "", TN_URL)
 
 

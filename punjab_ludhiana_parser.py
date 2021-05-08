@@ -69,6 +69,8 @@ def main():
     print(len(hospital_list[LUDHIANA_URL]))
     print(hospital_list[LUDHIANA_URL][0])
     print(hospital_list[LUDHIANA_URL][-1])
+    for hospital in hospital_list[LUDHIANA_URL]:
+        print(hospital.last_updated)
 
 
 if __name__ == "__main__":

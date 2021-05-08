@@ -74,6 +74,8 @@ def main():
     print(len(hospital_list[SURAT_URL]))
     print(hospital_list[SURAT_URL][0])
     print(hospital_list[SURAT_URL][-1])
+    for hospital in hospital_list[SURAT_URL]:
+        print(hospital.last_updated)
 
 
 if __name__ == "__main__":
