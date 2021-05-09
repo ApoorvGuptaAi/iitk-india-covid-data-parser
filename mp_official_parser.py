@@ -31,16 +31,15 @@ def parse_hospital_row(row_data):
     bed_data = row_data.find('div', {'class': 'deecriptions'})
     labels = bed_data.find_all('label')
     resources = [
-        Resource(ResourceType.BED_WITHOUT_OXYGEN, "", labels[0].text, None),
-        Resource(ResourceType.BED_WITH_OXYGEN, "", labels[1].text, None),
-        Resource(ResourceType.ICUS, "", labels[2].text, None)
+        Resource(ResourceType.BED_WITHOUT_OXYGEN, "", int(labels[0].text)),
+        Resource(ResourceType.BED_WITH_OXYGEN, "", int(labels[1].text)),
+        Resource(ResourceType.ICUS, "", int(labels[2].text))
     ]
     last_updated_at = datetime.fromtimestamp(0)
     try:
         last_updated_at = parser.parse(row_data.find('div', {
             'class': 'last-updated'
-        }).find('span').text.strip() + "IST",
-                                       tzinfos=tzinfos,
+        }).find('span').text.strip() + " +05:30",
                                        dayfirst=True)
     except Exception:
         print('Missing last updated info: ' + hospital_name)
@@ -76,8 +75,8 @@ def get_mp_hospitals():
 def main():
     hospital_list = get_mp_hospitals()
     print(len(hospital_list[MP_URL]))
-    for hospital in hospital_list[MP_URL]:
-        print(hospital.last_updated)
+    print(hospital_list[MP_URL][0])
+    print(hospital_list[MP_URL][-1])
 
 
 if __name__ == "__main__":

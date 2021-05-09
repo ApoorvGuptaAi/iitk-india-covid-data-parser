@@ -11,32 +11,11 @@ from database_helper import upload_hospitals
 
 covid_home_url_maps = [{
     "State":
-    "Delhi",
-    "City":
-    "Delhi",
-    "URL":
-    "https://coviddelhi.com/data/coviddelhi.com/bed_data.json"
-}, {
-    "State":
     "Karnataka",
     "City":
     "Bengaluru",
     "URL":
     "https://covidbengaluru.com/data/covidbengaluru.com/bed_data.json"
-}, {
-    "State":
-    "Andhra Pradesh",
-    "City":
-    None,
-    "URL":
-    "https://covidaps.com/data/covidaps.com/bed_data.json"
-}, {
-    "State":
-    "Telengana",
-    "City":
-    None,
-    "URL":
-    "https://covidtelangana.com/data/covidtelangana.com/bed_data.json"
 }, {
     "State":
     "West Bengal",
@@ -74,32 +53,11 @@ covid_home_url_maps = [{
     "https://covidnashik.com/data/covidnashik.com/bed_data.json"
 }, {
     "State":
-    "Madhya Pradesh",
-    "City":
-    None,
-    "URL":
-    "https://covidmp.com/data/covidmp.com/bed_data.json"
-}, {
-    "State":
-    "Tamil Nadu",
-    "City":
-    None,
-    "URL":
-    "https://covidtnadu.com/data/covidtnadu.com/bed_data.json"
-}, {
-    "State":
     "Maharastra",
     "City":
     "Beed",
     "URL":
     "https://covidbeed.com/data/covidbeed.com/bed_data.json"
-}, {
-    "State":
-    "Gujarat",
-    "City":
-    "Gandhi Nagar",
-    "URL":
-    "https://covidgandhinagar.com/data/covidgandhinagar.com/bed_data.json"
 }]
 
 
