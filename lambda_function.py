@@ -19,6 +19,7 @@ from thane_parser import get_thane_hospitals
 from gujarat_surat_parser import get_surat_hospitals
 from punjab_ludhiana_parser import get_ludhiana_hospitals
 from tn_official_parser import get_tn_hospitals
+from kerela_parser import get_data as get_kerela_data
 from telangana_official_parser import get_telangana_hospitals
 from ap_official_parser import get_ap_hospitals
 from mp_official_parser import get_mp_hospitals
@@ -77,6 +78,8 @@ def main(request):
         url_hospitals_map = get_ludhiana_hospitals()
     elif state_filter == "Tamil Nadu":
         url_hospitals_map = get_tn_hospitals()
+    elif state_filter == "Kerela":
+        url_hospitals_map = get_kerela_data()
     elif state_filter == "Telangana":
         url_hospitals_map = get_telangana_hospitals()
     elif state_filter == "Andhra Pradesh":
@@ -130,4 +133,4 @@ if __name__ == "__main__":
     # main({'state': 'Uttarakhand'})
     # print(main({'state': 'Gujarat', 'city': 'Surat'}))
     # print(main({'state': 'Punjab', 'city': 'Ludhiana'}))
-    print(main({'state': 'Madhya Pradesh'}))
+    main({'state': 'Kerela'})
