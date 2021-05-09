@@ -46,7 +46,7 @@ def create_hospitals(district_name, data):
     for entry in data[0]:
         name = entry[0]
         hospital = Hospital(name)
-        hospital.state = "Kerela"
+        hospital.state = "Kerala"
         hospital.district = district_name
         hospital.url = data[2]
         hospital.resources = []
