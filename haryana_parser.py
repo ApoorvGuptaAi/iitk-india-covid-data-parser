@@ -18,6 +18,7 @@ def get_updated_timestamp(updated_text):
 
 def parse_hospital(hospital_div, district):
     entry_div = hospital_div.find('div', {'class': 'entry-content'})
+    # print(entry_div)
     headings = entry_div.find_all('h6')
     name = headings[0].string[len('Facility Name: '):].strip()
     address = headings[0].attrs['title']
@@ -32,14 +33,23 @@ def parse_hospital(hospital_div, district):
     location = meta_info_div[1].find('a').attrs['onclick']
     beds_text = beds_text.replace('Beds Over Utilized ', '-')
     numbers = re.findall('-?(?:\d+?)+', beds_text)
+    allocated_numbers = []
+    for div_text in entry_div.find_all('div'):
+        if not "Allocated" in  div_text.text:
+            continue
+        allocated_numbers = re.findall('-?(?:\d+?)+', div_text.text)
+        break
     resources = [
-        Resource(ResourceType.BEDS, 'total_beds', int(numbers[0])),
-        Resource(ResourceType.BED_WITHOUT_OXYGEN, 'isolation_beds',
-                 int(numbers[1])),
-        Resource(ResourceType.ICU_WITHOUT_VENTILATOR, 'icu_beds',
-                 int(numbers[2])),
-        Resource(ResourceType.ICU_WITH_VENTILATOR, 'ventilator',
-                 int(numbers[3]))
+        Resource(ResourceType.BEDS, 'total available beds', 
+                 int(numbers[0])),
+        Resource(ResourceType.BED_WITH_OXYGEN, 'oxygen beds', 
+                 int(numbers[1]), int(allocated_numbers[0])),
+        Resource(ResourceType.BED_WITHOUT_OXYGEN, 'non-oxygen beds',
+                 int(numbers[2]), int(allocated_numbers[1])),
+        Resource(ResourceType.ICUS, 'icus',
+                 int(numbers[3]), int(allocated_numbers[2])),
+        Resource(ResourceType.ICU_WITH_VENTILATOR, 'ventilators',
+                 int(numbers[4]), int(allocated_numbers[3]))
     ]
     hospital = Hospital(name, address, district, '', 'Haryana', location,
                         get_updated_timestamp(updated_at), resources,
@@ -90,6 +100,7 @@ def get_haryana_hospitals():
     for district in haryana_districts.items():
         district_hospitals = get_hospital_list(district[0], district[1])
         all_hospitals.extend(district_hospitals)
+        break
     return {HARYANA_URL: all_hospitals}
 
 
@@ -99,7 +110,7 @@ def main():
     print(len(hospital_data[HARYANA_URL]))
     print(hospital_data[HARYANA_URL][0])
     for hospital in hospital_data[HARYANA_URL]:
-        print(hospital.last_updated)
+        print(hospital)
     #upload_hospitals(hospital_data)
 
 
