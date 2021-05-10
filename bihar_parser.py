@@ -31,10 +31,10 @@ def parse_hospital_data(hospital_tds):
         'map_href': hospital_tds[1].find('a')['href'],
         'category': hospital_tds[2].text,
         'last_updated': get_updated_timestamp(hospital_tds[3].text),
-        'total_beds': hospital_tds[4].text,
-        'vacant_beds': hospital_tds[5].text,
-        'icu_beds': hospital_tds[6].text,
-        'vacant_icu_beds': hospital_tds[7].text,
+        'total_beds': int(hospital_tds[4].text),
+        'vacant_beds': int(hospital_tds[5].text),
+        'icu_beds': int(hospital_tds[6].text),
+        'vacant_icu_beds': int(hospital_tds[7].text),
         'contact_phone': hospital_tds[8].text,
     }
     return parsed_data

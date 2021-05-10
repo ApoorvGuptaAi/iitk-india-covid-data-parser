@@ -133,4 +133,6 @@ if __name__ == "__main__":
     # main({'state': 'Uttarakhand'})
     # print(main({'state': 'Gujarat', 'city': 'Surat'}))
     # print(main({'state': 'Punjab', 'city': 'Ludhiana'}))
-    main({'state': 'Kerala'})
+    # main({'state': 'Kerala'})
+    main({'state': 'Bihar'})
+    main({'state': 'Maharastra', 'city': 'Beed'})
