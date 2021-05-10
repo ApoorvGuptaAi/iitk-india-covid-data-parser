@@ -22,5 +22,6 @@ Requires environment variables:
 
 ### Monitor
 
-https://ap-south-1.console.aws.amazon.com/lambda/home?region=ap-south-1#/functions/data_scraper?newFunction=true&tab=monitoring
+* AWS: https://ap-south-1.console.aws.amazon.com/lambda/home?region=ap-south-1#/functions/data_scraper?newFunction=true&tab=monitoring
+* DB updates: https://charts.mongodb.com/charts-iitk-covid-help-jmykt/public/dashboards/609180fc-1094-48ee-8ed1-9b2f131c4f3f
 
