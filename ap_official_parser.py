@@ -71,6 +71,7 @@ def main():
   hospitals = get_ap_hospitals()
   print(len(hospitals[AP_URL]))
   print(hospitals[AP_URL][0])
+  print(hospitals[AP_URL][53])
   print(hospitals[AP_URL][-1])  
   return 
 
