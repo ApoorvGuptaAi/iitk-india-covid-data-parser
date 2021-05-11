@@ -22,7 +22,7 @@ def get_district_post_params(scraped_data):
   for row in districts_table.find('tbody').find_all('tr'):
     onclickjs = row.find('a')['onclick'][len('setState('):-1]
     params = onclickjs.split(',')[-1][1:-1]
-    output = {x.split('=')[0]:int(x.split('=')[1]) for x in params.split("&")}
+    output = {x.split('=')[0]:x.split('=')[1] for x in params.split("&")}
     district_name = row.find('a').text
     district_map[district_name] = output
   return district_map
@@ -33,16 +33,18 @@ def parse_row(district, row_data):
   # 0 Number
   # 1 Name
   # 2 Phone number
-  # 3 Govt/Pvt
+  # 3 Nodal officer number
+  # 4 Govt/Pvt
   # Total occupied available
-  # 4 5 6 ICU Beds
-  # 7 8 9 O2 General Beds
-  # 10 11 12 General Beds
-  # 13 number of Ventilator but not known if avilable or not
+  # 5 6 7 ICU Beds
+  # 8 9 10 O2 General Beds
+  # 11 12 13 General Beds
+  # 14 15 16 number of Ventilator but not known if avilable or not
   resources = [
-    Resource(ResourceType.BED_WITHOUT_OXYGEN, "", int(columns[12].text), int(columns[10].text)),
-    Resource(ResourceType.BED_WITH_OXYGEN, "", int(columns[9].text), int(columns[7].text)),
-    Resource(ResourceType.ICUS, "", int(columns[6].text), int(columns[4].text))
+    Resource(ResourceType.BED_WITHOUT_OXYGEN, "", int(columns[13].text), int(columns[11].text)),
+    Resource(ResourceType.BED_WITH_OXYGEN, "", int(columns[10].text), int(columns[8].text)),
+    Resource(ResourceType.ICUS, "", int(columns[7].text), int(columns[5].text)),
+    Resource(ResourceType.ICU_WITH_VENTILATOR, "", int(columns[16].text), int(columns[14].text))
   ]
   return Hospital(columns[1].text, "", district, "", "Andhra Pradesh", "", datetime.fromtimestamp(0), resources, "", AP_URL)
 
