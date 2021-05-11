@@ -100,7 +100,6 @@ def get_haryana_hospitals():
     for district in haryana_districts.items():
         district_hospitals = get_hospital_list(district[0], district[1])
         all_hospitals.extend(district_hospitals)
-        break
     return {HARYANA_URL: all_hospitals}
 
 
