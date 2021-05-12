@@ -2,27 +2,28 @@ from typing import List
 import json
 import time
 
+from ap_official_parser import get_ap_hospitals
 from bihar_parser import get_bihar_hospitals
-from maharashtra_navi_mumbai_parser import get_hospital_data as get_maharashtra_navi_mumbai_data
 from database_helper import upload_hospitals, resource_to_json
+from delhi_parser_official import get_delhi_hospitals
 from generic_hospital_parser import get_data as generic_hospital_get_data
+from gujarat_gandhinagar_parser import get_data as get_gujarat_gandhinagar_data
+from gujarat_surat_parser import get_surat_hospitals
 from haryana_parser import get_haryana_hospitals
 from hospital import Resource, Hospital
+from kerala_parser import get_data as get_kerala_data
+from maharashtra_navi_mumbai_parser import get_hospital_data as get_maharashtra_navi_mumbai_data
+from maharashtra_panvel_parser import get_hospital_data as get_maharashtra_panvel_data
+from mp_official_parser import get_mp_hospitals
 from noida_up_parser import get_noida_hospitals
+from puducherry_parser import get_puducherry_hospitals
+from punjab_ludhiana_parser import get_ludhiana_hospitals
 from rajasthan_parser import get_rajasthan_hospitals
 from ranchi_parser import get_ranchi_hospitals
-from uttarakhand_parser import get_uttarakhand_hospitals
-from gujarat_gandhinagar_parser import get_data as get_gujarat_gandhinagar_data
-from delhi_parser_official import get_delhi_hospitals
-from puducherry_parser import get_puducherry_hospitals
-from thane_parser import get_thane_hospitals
-from gujarat_surat_parser import get_surat_hospitals
-from punjab_ludhiana_parser import get_ludhiana_hospitals
-from tn_official_parser import get_tn_hospitals
-from kerala_parser import get_data as get_kerala_data
 from telangana_official_parser import get_telangana_hospitals
-from ap_official_parser import get_ap_hospitals
-from mp_official_parser import get_mp_hospitals
+from thane_parser import get_thane_hospitals
+from tn_official_parser import get_tn_hospitals
+from uttarakhand_parser import get_uttarakhand_hospitals
 
 _VERSION = 1
 
@@ -64,6 +65,8 @@ def main(request):
         url_hospitals_map = get_rajasthan_hospitals()
     elif state_filter == "Maharashtra" and city_filter == "Navi Mumbai":
         url_hospitals_map = get_maharashtra_navi_mumbai_data()
+    elif state_filter == "Maharashtra" and city_filter == "Panvel":
+        url_hospitals_map = get_maharashtra_panvel_data()
     elif state_filter == "Gujarat" and city_filter == "Gandhinagar":
         url_hospitals_map = get_gujarat_gandhinagar_data()
     elif state_filter == "Delhi":
@@ -134,5 +137,6 @@ if __name__ == "__main__":
     # print(main({'state': 'Gujarat', 'city': 'Surat'}))
     # print(main({'state': 'Punjab', 'city': 'Ludhiana'}))
     # main({'state': 'Kerala'})
-    main({'state': 'Bihar'})
-    main({'state': 'Maharastra', 'city': 'Beed'})
+    # main({'state': 'Bihar'})
+    # main({'state': 'Maharastra', 'city': 'Beed'})
+    main({'state': 'Maharashtra', 'city': 'Panvel'})
