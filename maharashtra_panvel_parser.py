@@ -1,7 +1,7 @@
 import requests
 import logging
 from bs4 import BeautifulSoup
-from datetime import datetime
+from dateutil import parser
 from hospital import Hospital, Resource, ResourceType
 from generic_html_parser import HtmlHospitalParser
 
@@ -44,30 +44,27 @@ class PanvelParser(HtmlHospitalParser):
         name_elem = container.find('h4')
         if not name_elem:
             raise Exception(f'Cannot read name of hospital')
-        resource_types = [
-            ResourceType.ICUS, ResourceType.BED_WITH_OXYGEN,
-            ResourceType.BED_WITHOUT_OXYGEN, ResourceType.ICU_WITH_VENTILATOR
-        ]
         resource_mapper = {'ICU Vacant': ResourceType.ICUS,
-                           'Non ICU Vacant': ResourceType.BED_WITHOUT_OXYGEN,
+                           'Non ICU Vacant': ResourceType.BEDS,
                            'Ventilator Available': ResourceType.ICU_WITH_VENTILATOR}
-        catagories = [x.get_text() for x in container.find_all("div", {'class': 'text-white mb-0'})]
+        categories = [x.get_text() for x in container.find_all("div", {'class': 'text-white mb-0'})]
         numbers = [int(x.find_all('b')[0].get_text()) for x in container.find_all("div", {'class': 'h1 m-0'})]
         hospital_name = name_elem.get_text()
-        assert catagories == ['Capacity', 'Occupied', 'Vacant',
-                              'ICU Vacant', 'Non ICU Vacant', 'Ventilator Available'], f"Cant read catagories"
-        assert len(catagories) == len(numbers), f"Unable to match up numbers and categories for {hospital_name} details"
-        resource_dict = {k: v for k, v in zip(catagories, numbers)}
+        assert categories == ['Capacity', 'Occupied', 'Vacant',
+                              'ICU Vacant', 'Non ICU Vacant', 'Ventilator Available'], f"Cant read categories"
+        assert len(categories) == len(numbers), f"Unable to match up numbers and categories for {hospital_name} details"
+        resource_dict = {k: v for k, v in zip(categories, numbers)}
         resources = []
         for resource_name, resource_type in resource_mapper.items():
             resources.append(Resource(resource_type, '', resource_dict[resource_name]))
+        time_stamp = container.find('span', {'class': 'pull-right'}).get_text().split('Updated :')[-1]
         hospital = Hospital(**{'name': hospital_name,
                                'resources': resources,
                                'district': self.hospital_district,
                                'city': self.hospital_city,
                                'url': self.URL,
                                'state': self.hospital_state,
-                               'last_updated': datetime.utcnow(),
+                               'last_updated': parser.parse(time_stamp, dayfirst=True),
                                'debug_text': str(container)})
         self.hospitals.append(hospital)
         logger.info(f'Parsed hospital: {hospital.name} with {len(hospital.resources)} resources')
@@ -82,5 +79,7 @@ def get_hospital_data():
     return PanvelParser.export_hospital_data()
 
 
+# Uncomment for test
 # if __name__ == '__main__':
-#     get_hospital_data()
+#     dat = get_hospital_data()
+#     logger.info(f'Test complete')
