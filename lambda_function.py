@@ -14,6 +14,7 @@ from hospital import Resource, Hospital
 from kerala_parser import get_data as get_kerala_data
 from maharashtra_navi_mumbai_parser import get_hospital_data as get_maharashtra_navi_mumbai_data
 from maharashtra_panvel_parser import get_hospital_data as get_maharashtra_panvel_data
+from lucknow_parser import get_hospital_data as get_up_lucknow_data
 from mp_official_parser import get_mp_hospitals
 from noida_up_parser import get_noida_hospitals
 from prayagraj_parser import get_prayagraj_hospitals
@@ -93,6 +94,8 @@ def main(request):
         url_hospitals_map = get_mp_hospitals()
     elif state_filter == "Uttar Pradesh" and city_filter == "Prayagraj":
         url_hospitals_map = get_prayagraj_hospitals()
+    elif state_filter == "Uttar Pradesh" and city_filter == "Lucknow":
+        url_hospitals_map = get_up_lucknow_data()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -129,7 +132,7 @@ def lambda_handler(event, context):
     return main(event)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # print(main({'state': 'Jharkhand', 'city': 'Ranchi'}))
     # print(main({'state': 'Rajasthan'}))
     # print(main({'state': 'Maharashtra', 'city': 'Navi Mumbai'}))
@@ -144,4 +147,5 @@ if __name__ == "__main__":
     # main({'state': 'Bihar'})
     # main({'state': 'Maharastra', 'city': 'Beed'})
     # main({'state': "Uttar Pradesh", 'city': "Prayagraj"})
-    main({'state': 'Maharashtra', 'city': 'Panvel'})
+    # main({'state': 'Maharashtra', 'city': 'Panvel'})
+    # main({'state': 'Uttar Pradesh', 'city': 'Lucknow'})
