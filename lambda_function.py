@@ -23,6 +23,7 @@ from kerala_parser import get_data as get_kerala_data
 from telangana_official_parser import get_telangana_hospitals
 from ap_official_parser import get_ap_hospitals
 from mp_official_parser import get_mp_hospitals
+from prayagraj_parser import get_prayagraj_hospitals
 
 _VERSION = 1
 
@@ -86,6 +87,8 @@ def main(request):
         url_hospitals_map = get_ap_hospitals()
     elif state_filter == "Madhya Pradesh":
         url_hospitals_map = get_mp_hospitals()
+    elif state_filter == "Uttar Pradesh" and city_filter == "Prayagraj":
+        url_hospitals_map = get_prayagraj_hospitals()
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)
@@ -136,3 +139,4 @@ if __name__ == "__main__":
     # main({'state': 'Kerala'})
     main({'state': 'Bihar'})
     main({'state': 'Maharastra', 'city': 'Beed'})
+    main({'state': "Uttar Pradesh", 'city': "Prayagraj"})
