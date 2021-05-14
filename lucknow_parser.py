@@ -25,13 +25,11 @@ class LucknowParser(HtmlHospitalParser):
         return self
 
     def parse_hospitals(self):
-        hospital_containers = self.page_soup.find('table').find_all('tr')
-        container_idx = 0
-        full_table = self.page_soup.find_all('table')[3]
-        hospital_keys = [x.get_text() for x in full_table.find_all('span')]
-        hospital_values = [x.get_text() for x in full_table.find_all('a', {'class': 'style98'})]
-        hospital_keys = [tuple(hospital_keys[i:i + 5]) for i in range(0, len(hospital_keys), 5)]
+        hospital_keys = [x.get_text().strip() for x in self.page_soup.find_all('span')][3:]
+        hospital_values = [x.get_text() for x in self.page_soup.find_all('a', {'class': 'style98'})]
         hospital_values = [tuple(hospital_values[i:i + 2]) for i in range(0, len(hospital_values), 2)]
+        hospital_keys = [tuple(hospital_keys[i:i + 5]) for i in range(0, len(hospital_keys), 5)]
+        hospital_keys = [x for x in hospital_keys if x[0] and len(x) == 5]
         assert len(hospital_keys) == len(hospital_values), "Could not match up the hospital keys with hospital values " \
                                                            "- may be a change in schema"
         num_hospitals = len(hospital_keys)
@@ -42,10 +40,10 @@ class LucknowParser(HtmlHospitalParser):
                 resources = [Resource(ResourceType.BEDS, '', int(val_tupl[1]), int(val_tupl[0]))]
                 # TODO: This is a dynamic site that will provide more details on ICU/OXYGEN on click...figure that out
                 try:
-                    update_date = parser.parse(key_tupl[2], dayfirst=True)
+                    update_date = parser.parse(key_tupl[2] + "+05:30", dayfirst=True)
                     address = key_tupl[3]
                 except parser.ParserError:
-                    update_date = parser.parse(key_tupl[3], dayfirst=True)
+                    update_date = parser.parse(key_tupl[3] + "+05:30", dayfirst=True)
                     address = key_tupl[2]
                 hospital = Hospital(**{'name': key_tupl[0],
                                        'resources': resources,
@@ -72,9 +70,3 @@ class LucknowParser(HtmlHospitalParser):
 
 def get_hospital_data():
     return LucknowParser.export_hospital_data()
-
-
-# Uncomment for test
-# if __name__ == '__main__':
-#     dat = get_hospital_data()
-#     logger.info(f'Test complete')

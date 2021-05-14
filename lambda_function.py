@@ -26,6 +26,7 @@ from telangana_official_parser import get_telangana_hospitals
 from thane_parser import get_thane_hospitals
 from tn_official_parser import get_tn_hospitals
 from uttarakhand_parser import get_uttarakhand_hospitals
+from west_bengal_parser import get_hospital_data as get_west_bengal_data
 
 
 _VERSION = 1
@@ -49,6 +50,7 @@ def summarize_resources(hospitals: List[Hospital]):
 def main(request):
     state_filter = request.get('state', None) if request else None
     city_filter = request.get('city', None) if request else None
+    district_filter = request.get('district', None) if request else None
     print("Filters: {}, {}".format(state_filter, city_filter))
     job_id = "Parser{}-{}-{}-{}".format(_VERSION, round(time.time()),
                                         state_filter, city_filter)
@@ -96,6 +98,8 @@ def main(request):
         url_hospitals_map = get_prayagraj_hospitals()
     elif state_filter == "Uttar Pradesh" and city_filter == "Lucknow":
         url_hospitals_map = get_up_lucknow_data()
+    elif state_filter == "West Bengal":
+        url_hospitals_map = get_west_bengal_data(district_filter)
     else:
         url_hospitals_map = generic_hospital_get_data(state_filter=state_filter,
                                                       city_filter=city_filter)

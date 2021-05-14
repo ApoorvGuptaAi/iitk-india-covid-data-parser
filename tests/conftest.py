@@ -26,3 +26,8 @@ def test_panvel_event():
 @pytest.fixture(scope='session')
 def test_lucknow_event():
     return {'state': 'Uttar Pradesh', 'city': 'Lucknow'}
+
+
+@pytest.fixture(scope='session')
+def test_west_bengal_post():
+    return {'state': 'West Bengal', 'district': 'Alipurduar'}

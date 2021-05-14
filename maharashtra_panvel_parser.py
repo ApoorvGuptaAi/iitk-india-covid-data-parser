@@ -99,9 +99,3 @@ class PanvelParser(HtmlHospitalParser):
 
 def get_hospital_data():
     return PanvelParser.export_hospital_data()
-
-
-# Uncomment for test
-# if __name__ == '__main__':
-#     dat = get_hospital_data()
-#     logger.info(f'Test complete')
