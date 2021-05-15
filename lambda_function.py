@@ -14,7 +14,7 @@ from hospital import Resource, Hospital
 from kerala_parser import get_data as get_kerala_data
 from maharashtra_navi_mumbai_parser import get_hospital_data as get_maharashtra_navi_mumbai_data
 from maharashtra_panvel_parser import get_hospital_data as get_maharashtra_panvel_data
-from lucknow_parser import get_hospital_data as get_up_lucknow_data
+from lucknow_parser import get_hospital_data as get_up_data
 from mp_official_parser import get_mp_hospitals
 from noida_up_parser import get_noida_hospitals
 from prayagraj_parser import get_prayagraj_hospitals
@@ -94,10 +94,16 @@ def main(request):
         url_hospitals_map = get_ap_hospitals()
     elif state_filter == "Madhya Pradesh":
         url_hospitals_map = get_mp_hospitals()
-    elif state_filter == "Uttar Pradesh" and city_filter == "Prayagraj":
-        url_hospitals_map = get_prayagraj_hospitals()
-    elif state_filter == "Uttar Pradesh" and city_filter == "Lucknow":
-        url_hospitals_map = get_up_lucknow_data()
+    elif state_filter == "Uttar Pradesh":
+        if district_filter:
+            url_hospitals_map = get_up_data(district_filter)
+        elif city_filter == "Lucknow":
+            url_hospitals_map = get_up_data(['Lucknow'])
+        elif city_filter == "Prayagraj":
+            url_hospitals_map = get_prayagraj_hospitals()
+        else:
+            url_hospitals_map = get_up_data()
+
     elif state_filter == "West Bengal":
         url_hospitals_map = get_west_bengal_data(district_filter)
     else:

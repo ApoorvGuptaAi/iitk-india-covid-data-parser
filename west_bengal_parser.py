@@ -36,7 +36,7 @@ class WestBengalParser(HtmlHospitalParser):
         self.page_soup = None
         self.hospitals = []
 
-    def read_and_parse(self, district_filter=None):
+    def parse_hospitals(self, district_filter=None):
         myopener = MyOpener()
         with myopener.open(self.URL) as f:
             soup = BeautifulSoup(f)
@@ -166,7 +166,7 @@ class WestBengalParser(HtmlHospitalParser):
 
     @staticmethod
     def export_hospital_data(districts=None):
-        west_bengal_parser = WestBengalParser().read_and_parse(districts)
+        west_bengal_parser = WestBengalParser().parse_hospitals(districts)
         logger.info(f'Picked up {len(west_bengal_parser.hospitals)} hospitals in West Bengal')
         return {west_bengal_parser.URL: west_bengal_parser.hospitals}
 

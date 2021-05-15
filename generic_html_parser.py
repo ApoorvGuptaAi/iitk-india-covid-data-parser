@@ -4,10 +4,7 @@ from abc import abstractmethod
 
 
 class HtmlHospitalParser:
-    @abstractmethod
-    def read_page(self):
-        pass
 
     @abstractmethod
-    def parse_hospitals(self) -> List[Hospital]:
+    def parse_hospitals(self):
         pass
