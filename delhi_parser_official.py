@@ -68,7 +68,6 @@ def parse_hospital_resources(resources_details):
                     details['last_updated_at'] + "IST",
                     tzinfos=tzinfos,
                     dayfirst=True)
-        break
     return hospitals
 
 
@@ -95,6 +94,7 @@ def main():
     hospital_data = get_delhi_hospitals()
     print(len(hospital_data[DELHI_RESOURCES_HOST]))
     print(hospital_data[DELHI_RESOURCES_HOST][0])
+    print(hospital_data[DELHI_RESOURCES_HOST][-1])
     #upload_hospitals(hospital_data)
 
 
