@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "india-covid-data-parser"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-qc3rbzyuva4r"
+s3_prefix = "india-covid-data-parser"
+region = "ap-south-1"
+profile = "iitk"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "HeaderAuth=\"raJ@xTJqBkjqLKJ0AOCQR#q\" CovidHost=\"iitk-covid-help-1109904003.ap-south-1.elb.amazonaws.com\""

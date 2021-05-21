@@ -14,7 +14,17 @@ Requires environment variables:
 
 ## Deployment
 
-### Update
+### Deploy with SAM template + AWS CLI
+1. Make sure you have AWS CLI set up and configured properly 
+    - Install the AWS command line interface: <https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html>
+    - Configure your CLI, <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html>
+        - use command `aws configure` and follow the prompts to enter your info
+            - you may need to create your key ID and secret access key in the AWS console
+2. Build the app with `sam build`
+3. Deploy the app with `sam deploy --guided --profile <<INSERT AWS PROFILE NAME HERE>> --region ap-south-1`
+4. Crack open a beer n chill
+
+### Update - with the Lambda zip
 
  * Run "./lambda-zip-creator.sh" to create a new lambda.zip.
 

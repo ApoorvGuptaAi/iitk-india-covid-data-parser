@@ -1,8 +1,8 @@
 import unittest
 import json
 
-from generic_hospital_parser import parse_hospital, get_bed_resources
-from database_helper import hospital_to_json, resource_to_json
+from app.generic_hospital_parser import parse_hospital, get_bed_resources
+from app.database_helper import hospital_to_json, resource_to_json
 
 
 class TestGenericParse(unittest.TestCase):

@@ -14,7 +14,7 @@ def app(monkeysession):
     monkeysession.setenv('INDIA_COVID_HOST', 'localhost:27017')
     monkeysession.setenv('INDIA_COVID_AUTH_HEADER', 'testAuth')
     monkeysession.setenv('INDIA_COVID_SKIP_UPLOADING', 'True')
-    from lambda_function import lambda_handler
+    from app.lambda_function import lambda_handler
     yield lambda_handler
 
 

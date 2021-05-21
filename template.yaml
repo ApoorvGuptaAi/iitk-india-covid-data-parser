@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Microservice that scrapes the web for Covid bed data
+
+Globals:
+  Function:
+    Timeout: 900
+    CodeUri: app/
+    Runtime: python3.8
+    Environment:
+      Variables:
+        INDIA_COVID_SKIP_UPLOADING: ""
+        INDIA_COVID_AUTH_HEADER: !Ref HeaderAuth
+        INDIA_COVID_HOST: !Ref CovidHost
+
+Parameters:
+  HeaderAuth:
+    Type: String
+    Default: raJ@xTJqBkjqLKJ0AOCQR#q
+  CovidHost:
+    Type: String
+    Default: iitk-covid-help-1109904003.ap-south-1.elb.amazonaws.com
+
+Resources:
+  DataScraper:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${AWS::StackName}-DataScraper"
+      Handler: lambda_function.lambda_handler
+      Policies:
+        - AWSLambdaExecute
+      Events:
+        Delhi30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: false
+            Input: "{\"state\": \"Delhi\", \"city\": \"Delhi\"}"
+        ImplicitApi:
+          Type: Api
+          Properties:
+            Path: /scraper
+            Method: POST
+            RestApiId:
+              Ref: ApiGateway
+
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: India Covid Scraper API Gateway
+      StageName: v0
+      EndpointConfiguration: 'PRIVATE'
+      Auth:
+        ResourcePolicy:
+          CustomStatements: [ {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "execute-api:Invoke",
+            "Resource": "execute-api:/*"
+          } ]
