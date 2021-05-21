@@ -86,6 +86,8 @@ def upload_hospitals(hospitals: List[Hospital], job_id):
     client = requests.session()
     first = True
     for hospital in hospitals:
+        if not hospital.resources:
+            continue
         json_hospital = hospital_to_json(hospital, job_id)
         print("Uploading: {}".format(json_hospital["vendor"]["uniqueId"]))
         if first:
