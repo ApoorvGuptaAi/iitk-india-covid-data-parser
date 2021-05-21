@@ -100,6 +100,6 @@ def upload_hospitals(hospitals: List[Hospital], job_id):
                     resp.status_code, resp.text))
             json = resp.json()
         if first:
-            if json:
-                print("UPLOADED as id", json["dataLead"]["_id"])
+            # if json:
+            #    print("UPLOADED as id", json["dataLead"]["_id"])
             first = False
