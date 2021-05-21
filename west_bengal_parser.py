@@ -39,7 +39,7 @@ class WestBengalParser(HtmlHospitalParser):
     def parse_hospitals(self, district_filter=None):
         myopener = MyOpener()
         with myopener.open(self.URL) as f:
-            soup = BeautifulSoup(f)
+            soup = BeautifulSoup(f, 'html.parser')
             viewstate = soup.select("#__VIEWSTATE")[0]['value']
             viewstate_gen = soup.select("#__VIEWSTATEGENERATOR")[0]['value']
             all_districts = soup.find('select', {'id': "ctl00_ContentPlaceHolder1_ddl_District"}).find_all('option')
@@ -62,7 +62,7 @@ class WestBengalParser(HtmlHospitalParser):
                     form_data = self._gen_request(viewstate, viewstate_gen, district, gov_flag)
                     encoded_fields = urllib.parse.urlencode(form_data)
                     with myopener.open(self.URL, encoded_fields) as f1:
-                        hot_soup = BeautifulSoup(f1.read())
+                        hot_soup = BeautifulSoup(f1.read(), 'html.parser')
                         pagination = hot_soup.find('tr', {'class': 'pagination-ys'})
                         if not pagination:
                             pages = [1]
@@ -72,7 +72,7 @@ class WestBengalParser(HtmlHospitalParser):
                             form_data = self._gen_request(viewstate, viewstate_gen, district, gov_flag, page)
                             encoded_fields = urllib.parse.urlencode(form_data)
                             with myopener.open(self.URL, encoded_fields) as f2:
-                                hot_soup = BeautifulSoup(f2.read())
+                                hot_soup = BeautifulSoup(f2.read(), 'html.parser')
                                 schema_validation = hot_soup.find_all('div',
                                                                       {'class': 'card-header bg-light text-center'})
                                 if len(schema_validation) == 0:

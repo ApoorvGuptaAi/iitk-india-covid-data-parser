@@ -26,7 +26,7 @@ class UttarParser(HtmlHospitalParser):
 
     def parse_hospitals(self, district_filter=None):
         with self.opener.open(self.URL) as f:
-            soup = BeautifulSoup(f)
+            soup = BeautifulSoup(f, 'html.parser')
             viewstate = soup.select("#__VIEWSTATE")[0]['value']
             viewstate_gen = soup.select("#__VIEWSTATEGENERATOR")[0]['value']
             event_val = soup.select("#__EVENTVALIDATION")[0]['value']
@@ -46,7 +46,7 @@ class UttarParser(HtmlHospitalParser):
             form_data = self._gen_request(viewstate, viewstate_gen, event_val, district)
             encoded_fields = urllib.parse.urlencode(form_data)
             with self.opener.open(self.URL, encoded_fields) as f:
-                soup = BeautifulSoup(f)
+                soup = BeautifulSoup(f, 'html.parser')
                 hospital_keys = [x.get_text().strip() for x in soup.find_all('span')][3:]
                 hospital_keys = [tuple(hospital_keys[i:i + 5]) for i in range(0, len(hospital_keys), 5)]
                 hospital_keys = [x for x in hospital_keys if x[0] and len(x) == 5]
@@ -74,7 +74,7 @@ class UttarParser(HtmlHospitalParser):
 
     def read_hospital(self, hosp_data, encoded_fields, district):
         with self.opener.open(self.URL, encoded_fields) as f:
-            soup = BeautifulSoup(f)
+            soup = BeautifulSoup(f, 'html.parser')
             bed_data = [int(x.get_text()) for x in soup.find_all('span', {'class': 'style102'})]
             try:
                 update_date = parser.parse(hosp_data[2] + "+05:30", dayfirst=True)

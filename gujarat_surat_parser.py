@@ -48,7 +48,7 @@ def parse_hospital_row(data):
              })['href'][len("javascript:showpopup("):-2].split(',')[1][1:-1]
     # phone_numer not yet supported
     # phone_number = data.find('a', {'class' : 'hospital-info'})['href'][len("javascript:showpopup("):-2].split(',')[2][1:-1]
-    return Hospital(hospital_name, hospital_address, "", "Surat", "Gujarat", "",
+    return Hospital(hospital_name, hospital_address, "Surat", "Surat", "Gujarat", "",
                     parser.parse(last_updated_at + "+05:30", dayfirst=True),
                     resources, "", SURAT_URL)
 
@@ -75,7 +75,7 @@ def main():
     print(hospital_list[SURAT_URL][0])
     print(hospital_list[SURAT_URL][-1])
     for hospital in hospital_list[SURAT_URL]:
-        print(hospital.last_updated)
+        print(hospital)
 
 
 if __name__ == "__main__":
