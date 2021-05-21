@@ -19,7 +19,7 @@ def test_lucknow_post(app, test_lucknow_event):
     resp = app(test_lucknow_event, MockContext)
     resp = json.loads(resp)
     assert resp['outputs'][0]['state'] == 'Uttar Pradesh'
-    assert resp['outputs'][0]['size'] == 73
+    assert resp['outputs'][0]['size'] >= 74
 
 
 def test_up_post(app, test_lucknow_event):
@@ -32,6 +32,7 @@ def test_up_post(app, test_lucknow_event):
 def test_full_up(app):
     resp = app({'state': 'Uttar Pradesh'}, MockContext)
     assert resp
+
 
 def test_west_bengal_post(app, test_west_bengal_post):
     resp = app(test_west_bengal_post, MockContext)
