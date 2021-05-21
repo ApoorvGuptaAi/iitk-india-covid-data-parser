@@ -103,7 +103,6 @@ def main(request):
             url_hospitals_map = get_prayagraj_hospitals()
         else:
             url_hospitals_map = get_up_data()
-
     elif state_filter == "West Bengal":
         url_hospitals_map = get_west_bengal_data(district_filter)
     else:
@@ -118,6 +117,8 @@ def main(request):
         resources_summary = summarize_resources(hospitals)
         start = time.time()
         size = len(hospitals)
+        if size == 0:
+            continue
         upload_hospitals(hospitals, job_id)
         output = {
             "state": state_filter,
