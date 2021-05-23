@@ -62,13 +62,10 @@ class WestBengalParser(HtmlHospitalParser):
                     form_data = self._gen_request(viewstate, viewstate_gen, district, gov_flag)
                     encoded_fields = urllib.parse.urlencode(form_data)
                     with myopener.open(self.URL, encoded_fields) as f1:
-                        hot_soup = BeautifulSoup(f1.read(), 'html.parser')
-                        pagination = hot_soup.find('tr', {'class': 'pagination-ys'})
-                        if not pagination:
-                            pages = [1]
-                        else:
-                            pages = [x for x in range(1, int(pagination.find_all('a')[-1].get_text()) + 1)]
-                        for page in pages:
+                        page = 0
+                        previous_hospital_names = []
+                        while True:
+                            page += 1
                             form_data = self._gen_request(viewstate, viewstate_gen, district, gov_flag, page)
                             encoded_fields = urllib.parse.urlencode(form_data)
                             with myopener.open(self.URL, encoded_fields) as f2:
@@ -77,7 +74,7 @@ class WestBengalParser(HtmlHospitalParser):
                                                                       {'class': 'card-header bg-light text-center'})
                                 if len(schema_validation) == 0:
                                     logger.info(f'Did not pick up any hospitals for {district} - {gov_flag}')
-                                    continue
+                                    break
                                 assert [x.get_text().strip() for x in schema_validation[:5]] == \
                                        ['Covid Beds (Regular)', 'Covid Beds with Oxygen Support',
                                         'HDU Beds (Covid)',
@@ -86,6 +83,9 @@ class WestBengalParser(HtmlHospitalParser):
                                     f'The schema seems to have changed at {self.URL}'
                                 all_hospital_names = [x.get_text().strip() for x in
                                                       hot_soup.find('div', {'class': "form-group row"}).find_all('h5')]
+                                if all_hospital_names == previous_hospital_names:
+                                    logger.info(f'Moving on to the next page...')
+                                    break
                                 districts_and_cities = [x.get_text().replace('\n', '').replace('\r', '') for x in
                                                         hot_soup.find('div', {'class': "form-group row"}).
                                                             find_all('div',
@@ -114,6 +114,7 @@ class WestBengalParser(HtmlHospitalParser):
                                             'resources': self._read_resource_data(total_beds[i], vacant_beds[i])
                                         }))
                                 logger.info(f'Done parsing {len(all_hospital_names)} hospitals in {district}')
+                            previous_hospital_names = all_hospital_names
             return self
 
     @staticmethod
