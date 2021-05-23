@@ -29,5 +29,10 @@ def test_lucknow_event():
 
 
 @pytest.fixture(scope='session')
-def test_west_bengal_post():
+def test_west_bengal_event():
     return {'state': 'West Bengal', 'district': 'Alipurduar'}
+
+
+@pytest.fixture(scope='session')
+def test_west_bengal_event_pages():
+    return {'state': 'West Bengal'}

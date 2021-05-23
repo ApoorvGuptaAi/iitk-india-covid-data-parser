@@ -34,9 +34,13 @@ def test_full_up(app):
     assert resp
 
 
-def test_west_bengal_post(app, test_west_bengal_post):
-    resp = app(test_west_bengal_post, MockContext)
+def test_west_bengal_post(app, test_west_bengal_event):
+    resp = app(test_west_bengal_event, MockContext)
     resp = json.loads(resp)
 
+
+def test_west_bengal_pages(app, test_west_bengal_event_pages):
+    resp = app(test_west_bengal_event_pages, MockContext)
+    resp = json.loads(resp)
 
 # TODO: Test the GETs back from the DB
