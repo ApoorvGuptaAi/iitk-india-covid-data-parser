@@ -37,6 +37,156 @@ Resources:
             Schedule: rate(30 minutes)
             Enabled: false
             Input: "{\"state\": \"Delhi\", \"city\": \"Delhi\"}"
+        AP30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Andhra Pradesh\"}"
+        Bihar30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Bihar\"}"
+        GujaratAhmedabad30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Gujarat\", \"city\": \"Ahmedabad\"}"
+        GujaratGandhinagar30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Gujarat\", \"city\": \"Gandhinagar\"}"
+        GujaratSurat30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Gujarat\", \"city\": \"Surat\"}"
+        GujaratVadodara30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Gujarat\", \"city\": \"Vadodara\"}"
+        Haryana30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Haryana\"}"
+        JharkhandRanchi30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Jharkhand\", \"city\": \"Ranchi\"}"
+        KABangalore30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Karnataka\", \"city\": \"Bengaluru\"}"
+        Kerala30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Kerala\"}"
+        MHNaviMumbai30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Maharashtra\", \"city\": \"Navi Mumbai\"}"
+        MHPanvel30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Maharashtra\", \"city\": \"Panvel\"}"
+        MHPune30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Maharashtra\", \"city\": \"Pune\"}"
+        MHThane30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Maharashtra\", \"city\": \"Thane\"}"
+        MHNashik30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Maharashtra\", \"city\": \"Nashik\"}"
+        MHBeed30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Maharashtra\", \"city\": \"Beed\"}"
+        MP30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Madhya Pradesh\"}"
+        Puducherry30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Puducherry\"}"
+        PunjabLudhiana30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Punjab\", \"city\": \"Ludhiana\"}"
+        Rajasthan30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Rajasthan\"}"
+        Telangana30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Telangana\"}"
+        TN30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Tamil Nadu\"}"
+        Uttarakhand30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Uttarakhand\"}"
+        UP30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"Uttar Pradesh\"}"
+        WB30:
+          Type: Schedule
+          Properties:
+            Schedule: rate(30 minutes)
+            Enabled: true
+            Input: "{\"state\": \"West Bengal\"}"
         ImplicitApi:
           Type: Api
           Properties:
